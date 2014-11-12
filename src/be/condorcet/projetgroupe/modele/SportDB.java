@@ -39,7 +39,7 @@ public class SportDB extends Sport implements CRUD{
 	       try{
 		     String req = "call createSport(?)";
 		     cstmt = dbConnect.prepareCall(req);
-	         cstmt.setString(2,nomSport);
+	         cstmt.setString(1,nomSport);
 		     cstmt.executeUpdate();
 	       }
 	       catch(Exception e){
@@ -56,7 +56,7 @@ public class SportDB extends Sport implements CRUD{
 
 	@Override
 	public void read() throws Exception {
-		String req = "select * from sport nomSport  = nomSport"; 
+		String req = "select * from sport where nomSport  = ?"; 
         PreparedStatement  pstmt=null;
         try{
         	pstmt=dbConnect.prepareStatement(req);
@@ -66,7 +66,7 @@ public class SportDB extends Sport implements CRUD{
         	    
          if(rs.next()){
 	     	this.idSport=rs.getInt("idSport");
-	     	this.nomSport = nomSport;
+	     	//this.nomSport = nomSport;
 	     	}
 	      else { 
 	             throw new Exception("Code inconnu");
