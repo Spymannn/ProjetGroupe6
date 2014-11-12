@@ -3,7 +3,6 @@ package be.condorcet.projetgroupe.modele;
 import java.sql.*;
 import java.util.*;
 
-
 import android.util.Log;
 
 public class SportDB extends Sport implements CRUD{
@@ -85,18 +84,84 @@ public class SportDB extends Sport implements CRUD{
         }
 		
 	}
-
+	
+	public static ArrayList<SportDB> afficheTousSport()throws Exception{
+	    ArrayList<SportDB> sports=new ArrayList<SportDB>();
+	    String req = "select * from sport"; 
+        PreparedStatement  pstmt=null;
+	    try{
+	    	pstmt=dbConnect.prepareStatement(req);
+     	    ResultSet rs=(ResultSet)pstmt.executeQuery();
+     	    boolean ok = false;
+            while(rs.next()){
+            	ok = true;
+            	int idSport = rs.getInt("idSport");
+            	String nomSport = rs.getString("nomSport");
+            	sports.add(new SportDB(idSport,nomSport));
+	      }
+	   
+              if(!ok)throw new Exception("nom inconnu");
+              else return sports;
+	     }
+	     catch(Exception e){
+		
+                throw new Exception("Erreur de lecture "+e.getMessage());
+             }
+            finally{//effectué dans tous les cas 
+            try{
+              pstmt.close();
+            }
+            catch (Exception e){}
+        }
+     }
 	@Override
 	public void update() throws Exception {
-		// TODO Auto-generated method stub
+		CallableStatement cstmt=null;
+
+	    try{
+		     String req = "call updatesportnom(?,?)";
+		     cstmt=dbConnect.prepareCall(req);
+		     PreparedStatement pstm = dbConnect.prepareStatement(req);
+		     cstmt.setInt(1,idSport);
+		     cstmt.setString(2,nomSport);
+		     cstmt.executeUpdate();
+	            
+	    }
+
+		  catch(Exception e){
+		  	
+	                throw new Exception("Erreur de mise à jour "+e.getMessage());
+	             }
+	          finally{//effectué dans tous les cas 
+	            try{
+	              cstmt.close();
+	            }
+	            catch (Exception e){}
+	        }
 		
 	}
 
 	@Override
 	public void delete() throws Exception {
-		// TODO Auto-generated method stub
+		 CallableStatement cstmt =null;
+		   try{
+		     String req = "call deletesport(?)";
+		     cstmt = dbConnect.prepareCall(req);
+		     cstmt.setInt(1,idSport);
+		     cstmt.executeUpdate();
+		     	     
+		     }	
+		   catch (Exception e){
+		     	
+	                throw new Exception("Erreur d'effacement "+e.getMessage());
+	             }
+	           finally{//effectué dans tous les cas 
+	            try{
+	              cstmt.close();
+	            }
+	            catch (Exception e){}
+	          }
 		
 	}
-	
 
 }
