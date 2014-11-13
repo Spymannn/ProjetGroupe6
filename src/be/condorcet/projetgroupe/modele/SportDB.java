@@ -6,31 +6,51 @@ import java.util.*;
 import android.util.Log;
 
 public class SportDB extends Sport implements CRUD{
-	
+	/**
+	  * connexion à la base de données partagée entre toutes les instances(statique)
+	  */
 	protected static Connection dbConnect = null;
-	
+	/**
+	 * Constructeur par défaut
+	 */
 	public SportDB(){
 		
 	}
 	
-	
+	/**
+	 * Constructeur paramétré
+	 * @param idSport
+	 * @param nomSport
+	 */
 	public SportDB(int idSport,String nomSport){
 		super(idSport,nomSport);
 		
 	}
-	
+	/**
+	 * Constructeur de création d'un sport et la recherche
+	 * @param nomSport
+	 */
 	public SportDB(String nomSport){
 		super(0,nomSport);
 	}
-	
+	/**
+	 * Constructeur qui permet la suppression
+	 * @param idSport
+	 */
 	public SportDB(int idSport){
 		super(idSport,"");
 	}
-	
+	/**
+	   * méthode statique permettant de partager la connexion entre toutes les instances de
+	   * SportDB
+	   * @param nouvdbConnect connexion à la base de données
+	   */
 	public static void setConnection(Connection nouvdbConnect){
 		dbConnect = nouvdbConnect;
 	}
-	
+	/**
+	 * Création d'un nouveau sport
+	 */
 	@Override
 	public void create() throws Exception {
 		CallableStatement cstmt=null;
@@ -52,7 +72,10 @@ public class SportDB extends Sport implements CRUD{
 	    	   catch(Exception e){}
 	        }
 	}
-
+	/**
+	 * Lecture d'un sport par rapport à son nom 
+	 * permet de récupérer son id
+	 */
 	@Override
 	public void read() throws Exception {
 		String req = "select * from sport where nomSport  = ?"; 
@@ -84,7 +107,11 @@ public class SportDB extends Sport implements CRUD{
         }
 		
 	}
-	
+	/**
+	 * Lecture de tous les sports
+	 * @return
+	 * @throws Exception
+	 */
 	public static ArrayList<SportDB> afficheTousSport()throws Exception{
 	    ArrayList<SportDB> sports=new ArrayList<SportDB>();
 	    String req = "select * from sport"; 
@@ -114,6 +141,9 @@ public class SportDB extends Sport implements CRUD{
             catch (Exception e){}
         }
      }
+	/**
+	 * Update du nom d'un sport
+	 */
 	@Override
 	public void update() throws Exception {
 		CallableStatement cstmt=null;
@@ -140,7 +170,10 @@ public class SportDB extends Sport implements CRUD{
 	        }
 		
 	}
-
+	
+	/**
+	 * Delete d'un sport via son id
+	 */
 	@Override
 	public void delete() throws Exception {
 		 CallableStatement cstmt =null;
