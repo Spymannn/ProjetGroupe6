@@ -77,10 +77,13 @@ public class ParticipantDB extends Participant implements CRUD{
 	        }
 		
 	}
-
+	
+	/**
+	 * Lecture d'un participant
+	 */
 	@Override
 	public void read() throws Exception {
-		String req = "select * from participant where isUser  = ? and idGroupe = ?"; 
+		String req = "select * from participant where idUser  = ? and idGroupe = ?"; 
         PreparedStatement  pstmt=null;
         try{
         	pstmt=dbConnect.prepareStatement(req);
@@ -109,6 +112,11 @@ public class ParticipantDB extends Participant implements CRUD{
 		
 	}
 	
+	/**
+	 * Lecture d'une liste de groupe pour un utilisateur
+	 * @return
+	 * @throws Exception
+	 */
 	public ArrayList<ParticipantDB> listeGroupe() throws Exception{
 		
 		ArrayList<ParticipantDB> listeGroupes=new ArrayList<ParticipantDB>();
@@ -142,7 +150,12 @@ public class ParticipantDB extends Participant implements CRUD{
 		
 	}
 	
-public ArrayList<ParticipantDB> listeUser() throws Exception{
+	/**
+	 * Lecture d'une liste d'utilisateur pour un participant
+	 * @return
+	 * @throws Exception
+	 */
+	public ArrayList<ParticipantDB> listeUser() throws Exception{
 		
 		ArrayList<ParticipantDB> listeUsers=new ArrayList<ParticipantDB>();
 		
@@ -174,13 +187,18 @@ public ArrayList<ParticipantDB> listeUser() throws Exception{
         }
 		
 	}
-
+	/**
+	 * Mise à jour pas développée car aucun intérêt
+	 */
 	@Override
 	public void update() throws Exception {
 		// N'est pas développée car n'a pas d'intérêt
 		
 	}
-
+	
+	/**
+	 * Suppression d'un participant
+	 */
 	@Override
 	public void delete() throws Exception {
 		CallableStatement cstmt =null;
