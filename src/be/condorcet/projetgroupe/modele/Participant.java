@@ -24,6 +24,10 @@ public class Participant {
 		this.idUser = idUser;
 		this.idGroupe = idGroupe;
 	}
+	
+	public Participant(int idUser){
+		this.idUser = idUser;
+	}
 	/**
 	 * Getter idUser
 	 * @return
