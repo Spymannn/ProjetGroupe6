@@ -16,7 +16,9 @@ public class TestGroupeDB {
 			System.out.println("Connexion reussi");
 			GroupeDB.setConnection(con);
 			GroupeDB gp1;
-			
+			/**
+			 * Test ajout groupe
+			 */
 			try {
 				System.out.println("\nTest d'ajout d'un groupe");
 				System.out.println("===================================");

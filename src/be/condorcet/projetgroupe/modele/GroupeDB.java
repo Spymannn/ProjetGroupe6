@@ -104,7 +104,11 @@ public class GroupeDB extends Groupe implements CRUD {
 			catch (Exception e) {}
 		}
 	}
-	
+	/**
+	 * Liste qui affiche tous les groupes
+	 * @return
+	 * @throws Exception
+	 */
 	public static ArrayList<GroupeDB> afficheTousGroupe() throws Exception {
 		ArrayList<GroupeDB> groupes=new ArrayList<GroupeDB>();
 		String req = "select * from groupe";
