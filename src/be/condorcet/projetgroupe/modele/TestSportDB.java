@@ -110,6 +110,20 @@ public class TestSportDB {
 	        }
 	        
 	        try{
+	            System.out.println("\nTest d'update d'un sport avec nom déjà utilisé");
+	            System.out.println("==============================================");
+	            SportDB sp2 = new SportDB(21,"basketball");
+	            sp2.update();
+	            
+	            sp2.read();
+	            System.err.println("sp2 : "+sp2);
+	            System.err.println("ERREUR, rien ne devrait être update");
+	        }
+	        catch(Exception e){
+	            System.out.println("okay, rien ne devrait être update");
+	        }
+	        
+	        try{
 	        	System.out.println("\nTest de suppression d'un sport");
 	        	System.out.println("\n==============================");
 	        	sp1 = new SportDB(22);
