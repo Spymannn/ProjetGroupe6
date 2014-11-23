@@ -22,15 +22,78 @@ public class UtilisateurDB extends Utilisateur implements CRUD{
 	}
 	/**
 	 * Constructeur paramétré
-	 * @param idSport
-	 * @param nomSport
+	 * @param idUser
+	 * @param nomUser
+	 * @param prenomUser
+	 * @param mdp
+	 * @param pseudoUser
+	 * @param email
+	 * @param dateNaissance
+	 * @param gender
+	 * @param sportFavoris1
+	 * @param sportFavoris2
+	 * @param sportFavoris3
 	 */
-	public UtilisateurDB(int idUser, String nomUser, String prenomUser,
-			String mdp, String pseudoUser, String email, Date dateNaissance,
+	public UtilisateurDB(int idUser,String nomUser, String prenomUser,
+			String mdp, String pseudoUser, String email, String dateNaissance,
 			String gender, String sportFavoris1, String sportFavoris2,
 			String sportFavoris3){
 		super(idUser,nomUser, prenomUser, mdp, pseudoUser, email, dateNaissance, gender, sportFavoris1, sportFavoris2, sportFavoris3);
 		
+	}
+	/**
+	 * Constructeur de recherche de tous users
+	 * @param idUser
+	 * @param nomUser
+	 * @param prenomUser
+	 * @param mdp
+	 * @param pseudoUser
+	 * @param email
+	 * @param dateNaissance
+	 * @param gender
+	 * @param sportFavoris1
+	 * @param sportFavoris2
+	 * @param sportFavoris3
+	 */
+	public UtilisateurDB(int idUser, String nomUser, String prenomUser,
+			String mdp, String pseudoUser, String email, String dateNaissance,
+			String gender){
+		super(idUser,nomUser, prenomUser, mdp, pseudoUser, email, dateNaissance, gender, "","","");
+		
+	}
+	/**
+	 * Constructeur création Utilisateurs
+	 * @param nomUser
+	 * @param prenomUser
+	 * @param mdp
+	 * @param pseudoUser
+	 * @param email
+	 * @param dateNaissance
+	 * @param gender
+	 * @param sportFavoris1
+	 * @param sportFavoris2
+	 * @param sportFavoris3
+	 */
+	public UtilisateurDB(String nomUser, String prenomUser,
+			String mdp, String pseudoUser, String email, String dateNaissance,
+			String gender, String sportFavoris1, String sportFavoris2,
+			String sportFavoris3){
+		super(0,nomUser, prenomUser, mdp, pseudoUser, email, dateNaissance, gender, sportFavoris1, sportFavoris2, sportFavoris3);
+		
+	}
+	/**
+	 * Constructeur de read
+	 * @param pseudoUser
+	 */
+	public UtilisateurDB(String pseudoUser){
+		super(0,"", "", "", pseudoUser, "", "", "", "","", "");
+	}
+	/**
+	 * Constructeur de delete
+	 * @param idUser
+	 */
+	public UtilisateurDB(int idUser){
+		super(idUser,"", "", "", "", "", "", "", "","", "");
 	}
 	/**
 	   * méthode statique permettant de partager la connexion entre toutes les instances de
@@ -48,10 +111,19 @@ public class UtilisateurDB extends Utilisateur implements CRUD{
 		CallableStatement cstmt=null;
 		
 	       try{
-		     String req = "call createSport(?,?,?,?,?,?,?,?,?,?,?)";
+		     String req = "call createUser(?,?,?,?,?,?,?,?,?,?)";
 		     cstmt = dbConnect.prepareCall(req);
-	         cstmt.setString(nomUser, prenomUser, mdp, pseudoUser, email, (java.sql.Date)dateNaissance, gender, sportFavoris1, sportFavoris2, sportFavoris3);
-		     cstmt.executeUpdate();
+	         cstmt.setString(1,nomUser);
+	         cstmt.setString(2,prenomUser);
+		     cstmt.setString(3,mdp);
+		     cstmt.setString(4,pseudoUser);
+		     cstmt.setString(5,email);
+		     cstmt.setString(6, dateNaissance);
+		     cstmt.setString(7,gender);
+		     cstmt.setString(8,sportFavoris1);
+		     cstmt.setString(9,sportFavoris2);
+		     cstmt.setString(10,sportFavoris3);
+	         cstmt.executeUpdate();
 	       }
 	       catch(Exception e){
 	    	   throw new Exception("Erreur de création "+e.getMessage());
@@ -70,20 +142,25 @@ public class UtilisateurDB extends Utilisateur implements CRUD{
 	 */
 	@Override
 	public void read() throws Exception {
-		String req = "select * from utilisateur where nomUser  = ?"; 
+		String req = "select * from utilisateur where pseudoUser  = ?"; 
        PreparedStatement  pstmt=null;
        try{
        	pstmt=dbConnect.prepareStatement(req);
-       	pstmt.setString(1,nomUser);
-    	    ResultSet rs=(ResultSet)pstmt.executeQuery();	
+       	pstmt.setString(1,pseudoUser);
+    	ResultSet rs=(ResultSet)pstmt.executeQuery();	
        	
        	    
         if(rs.next()){
 	     	this.idUser=rs.getInt("idUser");
-	     	//this.nomUser = nomUser;
+	     	this.nomUser = rs.getString("nomUser");
+	     	this.prenomUser = rs.getString("prenomUser");
+	     	this.mdp = rs.getString("mdp");
+	     	this.email = rs.getString("email");
+	     	this.dateNaissance = rs.getString("dateNaissance");
+	     	this.gender = rs.getString("gender");
 	     	}
 	      else { 
-	             throw new Exception("Code inconnu");
+	             throw new Exception("Pseudo inconnu");
 	      }
 
            }
@@ -105,7 +182,7 @@ public class UtilisateurDB extends Utilisateur implements CRUD{
 	 * @throws Exception
 	 */
 	public static ArrayList<UtilisateurDB> afficheTousUtilisateurs()throws Exception{
-	    ArrayList<UtilisateurDB> utilisateur=new ArrayList<UtilisateurDB>();
+	    ArrayList<UtilisateurDB> utilisateurs=new ArrayList<UtilisateurDB>();
 	    String req = "select * from utilisateur"; 
        PreparedStatement  pstmt=null;
 	    try{
@@ -117,12 +194,18 @@ public class UtilisateurDB extends Utilisateur implements CRUD{
            	int idUser = rs.getInt("idUser");
            	String nomUser = rs.getString("nomUser");
            	String prenomUser = rs.getString("prenomUser");
+           	String mdp = rs.getString("mdp");
+           	String pseudoUser = rs.getString("pseudoUser");
+           	String email = rs.getString("email");
+           	String dateNaissance = rs.getString("dateNaissance");
+           	String gender = rs.getString("gender");
            	
-           	utilisateur.add(new UtilisateurDB(idUser,nomUser, prenomUser));
+           	
+           	utilisateurs.add(new UtilisateurDB(idUser,nomUser, prenomUser,mdp,pseudoUser,email,dateNaissance,gender));
 	      }
 	   
              if(!ok)throw new Exception("nom inconnu");
-             else return utilisateur;
+             else return utilisateurs;
 	     }
 	     catch(Exception e){
 		
@@ -143,11 +226,11 @@ public class UtilisateurDB extends Utilisateur implements CRUD{
 		CallableStatement cstmt=null;
 
 	    try{
-		     String req = "call updatesportnom(?,?)";
+		     String req = "call updateuserpassword(?,?)";
 		     cstmt=dbConnect.prepareCall(req);
-		     PreparedStatement pstm = dbConnect.prepareStatement(req);
+		     //PreparedStatement pstm = dbConnect.prepareStatement(req);
 		     cstmt.setInt(1,idUser);
-		     cstmt.setString(2,nomUser);
+		     cstmt.setString(2,mdp);
 		     cstmt.executeUpdate();
 	            
 	    }

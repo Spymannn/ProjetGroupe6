@@ -151,7 +151,7 @@ public class SportDB extends Sport implements CRUD{
 	    try{
 		     String req = "call updatesportnom(?,?)";
 		     cstmt=dbConnect.prepareCall(req);
-		     PreparedStatement pstm = dbConnect.prepareStatement(req);
+		     //PreparedStatement pstm = dbConnect.prepareStatement(req);
 		     cstmt.setInt(1,idSport);
 		     cstmt.setString(2,nomSport);
 		     cstmt.executeUpdate();

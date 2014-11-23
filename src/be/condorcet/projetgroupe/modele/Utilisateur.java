@@ -30,7 +30,7 @@ public class Utilisateur {
 	/**
 	 * date de naissance de l'utilisateur
 	 */
-	protected Date dateNaissance;
+	protected String dateNaissance;
 	/**
 	 * genre de l'utilisateur
 	 */
@@ -68,10 +68,9 @@ public class Utilisateur {
 	 * @param sportFavoris3
 	 */
 	public Utilisateur(int idUser, String nomUser, String prenomUser,
-			String mdp, String pseudoUser, String email, Date dateNaissance,
+			String mdp, String pseudoUser, String email, String dateNaissance,
 			String gender, String sportFavoris1, String sportFavoris2,
 			String sportFavoris3) {
-		super();
 		this.idUser = idUser;
 		this.nomUser = nomUser;
 		this.prenomUser = prenomUser;
@@ -84,7 +83,9 @@ public class Utilisateur {
 		this.sportFavoris2 = sportFavoris2;
 		this.sportFavoris3 = sportFavoris3;
 	}
-
+	
+	
+	
 	/**
 	 * getter idUser
 	 * @return
@@ -173,14 +174,14 @@ public class Utilisateur {
 	 * getter dateNaissance
 	 * @return
 	 */
-	public Date getDateNaissance() {
+	public String getDateNaissance() {
 		return dateNaissance;
 	}
 	/**
 	 * setter dateNaissance
 	 * @param dateNaissance
 	 */
-	public void setDateNaissance(Date dateNaissance) {
+	public void setDateNaissance(String dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
 	/**
