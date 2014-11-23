@@ -27,6 +27,18 @@ public class GroupeDB extends Groupe implements CRUD {
 		super(0,nomGroupe,"",0,0,0,0);
 	}
 	
+	public GroupeDB(int idGroupe, String nomGroupe) {
+        super(idGroupe,nomGroupe,"",0,0,0,0);
+	}
+	
+	public GroupeDB(int idGroupe, int maxUser) {
+        super(idGroupe,"","",0,0,maxUser,0);
+	}
+	
+	public GroupeDB(String mdpGroupe, int idGroupe) {
+        super(idGroupe,"",mdpGroupe,0,0,0,0);
+	}
+	
 	public static void setConnection(Connection nouvdbConnect){
 		dbConnect = nouvdbConnect;
 	}
@@ -104,6 +116,38 @@ public class GroupeDB extends Groupe implements CRUD {
 			catch (Exception e) {}
 		}
 	}
+	
+	public void readId() throws Exception {
+        String req = "select * from groupe where idGroupe = ?";
+        PreparedStatement pstmt=null;
+        try {
+            pstmt=dbConnect.prepareStatement(req);
+            pstmt.setInt(1, idGroupe);
+            ResultSet rs = (ResultSet)pstmt.executeQuery();
+
+            if(rs.next()) {
+                this.nomGroupe=rs.getString("nomGroupe");
+                this.mdpGroupe=rs.getString("mdpGroupe");
+                this.idSport=rs.getInt("idSport");
+                this.admin=rs.getInt("admin");
+                this.maxUser=rs.getInt("maxUser");
+                this.nbrUser=rs.getInt("nbrUser");
+            }
+            else {
+                throw new Exception ("Code Inconnu");
+            }
+        }
+        catch(Exception e) {
+            throw new Exception("Erreur de lecture "+e.getMessage());
+        }
+        finally {
+            try {
+                    pstmt.close();
+            }
+            catch (Exception e) {}
+        }
+    }
+	
 	/**
 	 * Liste qui affiche tous les groupes
 	 * @return
