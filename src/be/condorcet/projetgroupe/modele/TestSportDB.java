@@ -57,7 +57,7 @@ public class TestSportDB {
 	        try{
 	            System.out.println("\nTest de lecture d'un sport inexistant");
 	            System.out.println("=========================================");
-	            sp1 = new SportDB("kayak");
+	            sp1 = new SportDB("kayakkkk");
 	            sp1.read();	            
 	            
 	            System.out.println("Sp1 : "+sp1);
@@ -85,7 +85,7 @@ public class TestSportDB {
 	        try{
 	            System.out.println("\nTest d'update nom sport");
 	            System.out.println("==========================");
-	            SportDB sp2 = new SportDB(22,"saut en hauteur");
+	            SportDB sp2 = new SportDB(21,"saut en hauteur");
 	            sp2.update();
 	            
 	            sp2.read();
@@ -98,7 +98,7 @@ public class TestSportDB {
 	        try{
 	            System.out.println("\nTest d'update d'un sport inconnu");
 	            System.out.println("==========================");
-	            SportDB sp2 = new SportDB(23,"saut en hauteur");
+	            SportDB sp2 = new SportDB(23,"saut en longueur");
 	            sp2.update();
 	            
 	            sp2.read();
@@ -126,7 +126,7 @@ public class TestSportDB {
 	        try{
 	        	System.out.println("\nTest de suppression d'un sport");
 	        	System.out.println("\n==============================");
-	        	sp1 = new SportDB(22);
+	        	sp1 = new SportDB(21);
 	        	sp1.delete();
 	        	System.out.println("Okay, suppression effectuée");
 	        	

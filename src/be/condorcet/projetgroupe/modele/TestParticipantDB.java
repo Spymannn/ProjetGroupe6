@@ -21,14 +21,14 @@ public class TestParticipantDB {
 	        try{
 	            System.out.println("\nTest d'un ajout d'un participant");
 	            System.out.println("=========================================");
-	            p1 = new ParticipantDB(61,25);
+	            p1 = new ParticipantDB(81,25);
 	            p1.create();	            
 	            
 	            System.out.println("p1 : "+p1);
 	            System.out.println("Okay, participant créée");
 	        }
 	        catch(Exception e){
-	            System.err.println("MAUVAIS!!! Exception lors de la création d'un sport");
+	            System.err.println("MAUVAIS!!! Exception lors de la création d'un participant");
 	        }
 	        
 	        try{
