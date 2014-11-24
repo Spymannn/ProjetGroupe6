@@ -170,6 +170,18 @@ public class TestGroupeDB {
                 catch(Exception e){
                     System.out.println("Suppression ratée donc pas de prob");
                 }
+                
+                try{
+                    System.out.println("\nTest d'une suppresion d'un groupe qui existe a des users");
+                    System.out.println("==================================================");
+                    gp1 = new GroupeDB("fifaStreet");
+                    gp1.read();
+                    gp1.delete();
+                    System.out.println("Suppression reussie");
+                }
+                catch(Exception e){
+                    System.out.println("Erreur de suppression : "+e);
+                }
 		}
 	}
 

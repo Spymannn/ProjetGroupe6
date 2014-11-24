@@ -157,5 +157,18 @@ public class TestUtilisateurDB {
         catch(Exception e){
         	System.out.println("Okay, utilisateur n'existe pas");
         }
+        try{
+        	System.out.println("\nTest de suppression d'un user admin");
+        	System.out.println("\n=================================");
+        	user1 = new UtilisateurDB("MPoriaux");
+        	user1.read();
+        	user1.delete();
+        	
+        	System.err.println("erreur, l'utilisateur est admin");
+        	
+        }
+        catch(Exception e){
+        	System.out.println("Okay, exception normal l'utilisateur est admin c'est normal\nil faut qu'il supprime les groupes d'abord");
+        }
 	}
 }
