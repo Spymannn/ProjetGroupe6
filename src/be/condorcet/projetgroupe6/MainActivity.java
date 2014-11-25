@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
+	//Variables
 	TextView signup = null;
 
 	@Override
