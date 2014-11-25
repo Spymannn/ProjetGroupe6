@@ -170,7 +170,9 @@ public class TestGroupeDB {
                 catch(Exception e){
                     System.out.println("Suppression ratée donc pas de prob");
                 }
-                
+                /**
+                 * Test d'une suppression d'un groupe qui a des utilisateurs
+                 */
                 try{
                     System.out.println("\nTest d'une suppresion d'un groupe qui existe a des users");
                     System.out.println("==================================================");
