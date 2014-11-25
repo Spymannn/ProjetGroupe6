@@ -84,7 +84,7 @@ public class Utilisateur {
 		this.sportFavoris3 = sportFavoris3;
 	}
 	
-	
+	//test git
 	
 	/**
 	 * getter idUser
