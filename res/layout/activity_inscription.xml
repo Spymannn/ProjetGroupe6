@@ -1,0 +1,141 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#ACD6FF"
+    tools:context="com.example.testunprojet.Inscription" >
+
+	<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="match_parent"
+	    android:layout_centerHorizontal="true"
+	    android:layout_centerVertical="true"
+	    android:orientation="vertical" >
+
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/inscr" />
+
+	    <LinearLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_horizontal"
+	        android:orientation="horizontal" >
+
+	        <EditText
+	            android:id="@+id/nameE"
+	            android:layout_width="142dp"
+	            android:layout_height="wrap_content"
+	            android:hint="@string/name"
+	            android:inputType="textPersonName" >
+
+	            <requestFocus />
+	        </EditText>
+
+	        <EditText
+	            android:id="@+id/firstnameE"
+	            android:layout_width="152dp"
+	            android:layout_height="wrap_content"
+	            android:hint="@string/firstname"
+	            android:inputType="textPersonName" />
+	    </LinearLayout>
+
+	    <EditText
+	        android:id="@+id/pseudoE"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:hint="@string/pseudo"
+	        android:inputType="textPersonName" />
+
+	    <EditText
+	        android:id="@+id/passE"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:hint="@string/password"
+	        android:inputType="textPassword" />
+
+	    <EditText
+	        android:id="@+id/confPassE"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:hint="@string/confPass"
+	        android:inputType="textPassword" />
+
+	    <EditText
+	        android:id="@+id/adrEmail"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:hint="@string/email"
+	        android:inputType="textEmailAddress" />
+
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/naiss" />
+
+	    <LinearLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal" >
+
+	        <EditText
+	            android:id="@+id/ddE"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:hint="@string/day"
+	            android:inputType="number" />
+
+	        <EditText
+	            android:id="@+id/mmE"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:hint="@string/month"
+	            android:inputType="number" />
+
+	        <EditText
+	            android:id="@+id/yyyyE"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:hint="@string/year"
+	            android:inputType="number" />
+	    </LinearLayout>
+
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/gender" />
+
+	    <RadioGroup
+	        android:id="@+id/radioGender"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        android:checkedButton="@+id/radioMale" >
+
+	            <RadioButton
+	                android:id="@+id/radioMale"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:checked="true"
+	                android:text="@string/radioMale" />
+
+	            <RadioButton
+	                android:id="@+id/radioFemale"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="@string/radioFemale" />
+	    </RadioGroup>
+	    
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/choosesport" />
+
+	</LinearLayout>
+
+</RelativeLayout>

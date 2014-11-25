@@ -22,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Activity_inscription"
+            android:label="@string/title_activity_activity_inscription" >
+        </activity>
+        <activity
+            android:name=".InscriptionActivity"
+            android:label="@string/title_activity_inscription" >
+        </activity>
     </application>
 
 </manifest>
