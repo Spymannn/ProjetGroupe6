@@ -207,6 +207,9 @@ public class MainActivity extends ActionBarActivity {
 						  startActivity(i2);
 					  
 					  }
+					  else{
+						  //test
+					  }
 					  
 								
 				}
