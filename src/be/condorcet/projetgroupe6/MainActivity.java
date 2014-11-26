@@ -28,7 +28,7 @@ public class MainActivity extends ActionBarActivity {
 	private Button login;
 	private Connection con = null;
 	
-	//Test commit
+	//Test commit te
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
