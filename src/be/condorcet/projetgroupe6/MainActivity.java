@@ -171,25 +171,29 @@ public class MainActivity extends ActionBarActivity {
 				     * Cette connexion devra être lancée ici
 				     * dans toutes les classesDB, on mets tout ici
 				     */
-				   Log.d("pass","test 1 : "+password+ "pseudo : "+ps);
+				   //Log.d("pass","test 1 : "+password+ "pseudo : "+ps);
 			        try{
 			        	
 			           UtilisateurDB user=new UtilisateurDB(ps);
 			           user.read();
 			           resultat=user.toString();
 			           password = user.getMdp();
-			           Log.d("pass","test 2 : "+password);
+			           //Log.d("pass","test 2 : "+password);
 			           		           
 			        }
 			        catch(Exception e){		
 			        	//Traduction ici
-			        	Log.d("pass","test 3 : "+password+" erreur"+e.getMessage());
-			         resultat="erreur" +e.getMessage(); 
+			        	//Log.d("pass","test 3 : "+password+" erreur"+e.getMessage());
+			         //resultat="erreur" +e.getMessage(); 
+			        	//Traduction ICI
+			        	resultat = "User not found!";
 			         
 			         return false;
 			         
 			         }
 			        if(!pass.equals(password)){
+			        	//Traduction ICI
+			        	resultat = "Wrong password";
 			        	   return false;
 			           }
 			        else
@@ -209,7 +213,8 @@ public class MainActivity extends ActionBarActivity {
 					  
 					  }
 					  else{
-						  //test
+				        	Toast.makeText(MainActivity.this, resultat, Toast.LENGTH_SHORT).show();
+
 					  }		
 				}
 			}
