@@ -46,7 +46,7 @@ dbPort=properties.getString("cours.DB.port");
        
     }
     catch(Exception e) {
-     Log.e("connection","erreur de connexion "+e);
+     Log.e("connection","erreur de connexion "+e+username+password);
      return null ;
     }
    
