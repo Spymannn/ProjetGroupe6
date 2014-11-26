@@ -27,7 +27,8 @@ public class MainActivity extends ActionBarActivity {
 	private EditText pseudo,mdp;
 	private Button login;
 	private Connection con = null;
-
+	
+	//Test commit
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
