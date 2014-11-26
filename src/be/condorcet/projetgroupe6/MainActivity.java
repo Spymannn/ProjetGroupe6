@@ -209,12 +209,7 @@ public class MainActivity extends ActionBarActivity {
 					  }
 					  else{
 						  //test
-					  }
-					  
-								
+					  }		
 				}
-		
 			}
-
-	
 }

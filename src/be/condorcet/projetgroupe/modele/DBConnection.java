@@ -40,13 +40,13 @@ dbPort=properties.getString("cours.DB.port");
         Class.forName ("oracle.jdbc.OracleDriver");
         
         String url = "jdbc:oracle:thin:@//"+serverName+":"+dbPort+"/"+dbName;
-      Connection  dbConnect = DriverManager.getConnection(url, username, password);
+      Connection  dbConnect = DriverManager.getConnection(url,username,password);
       
       return dbConnect;
        
     }
     catch(Exception e) {
-     Log.e("connection","erreur de connexion "+e+username+password);
+     Log.e("connection","erreur de connexion "+e+" user : "+username+" mdp : "+password);
      return null ;
     }
    
