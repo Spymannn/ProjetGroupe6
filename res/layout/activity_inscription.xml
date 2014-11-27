@@ -2,12 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fond3"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#ACD6FF"
+    android:scrollbars="vertical"
     tools:context="com.example.testunprojet.Inscription" >
+
+    <!--android:background="#ACD6FF"  -->
 
 	<LinearLayout
 	    android:layout_width="wrap_content"
@@ -114,27 +117,42 @@
 	        android:id="@+id/radioGender"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:orientation="horizontal"
-	        android:checkedButton="@+id/radioMale" >
+	        android:checkedButton="@+id/radioMale"
+	        android:orientation="horizontal" >
 
-	            <RadioButton
-	                android:id="@+id/radioMale"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:checked="true"
-	                android:text="@string/radioMale" />
+	        <RadioButton
+	            android:id="@+id/radioMale"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:checked="true"
+	            android:text="@string/radioMale" />
 
-	            <RadioButton
-	                android:id="@+id/radioFemale"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:text="@string/radioFemale" />
+	        <RadioButton
+	            android:id="@+id/radioFemale"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/radioFemale" />
 	    </RadioGroup>
-	    
+
 	    <TextView
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="@string/choosesport" />
+
+	    <Spinner
+	        android:id="@+id/spinnerSport1"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" />
+	    
+	    <Spinner
+	        android:id="@+id/spinnerSport2"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" />
+	    
+	    <Spinner
+	        android:id="@+id/spinnerSport3"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" />
 
 	</LinearLayout>
 
