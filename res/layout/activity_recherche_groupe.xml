@@ -23,8 +23,6 @@
             android:layout_alignTop="@+id/linearLayout1"
             android:layout_toLeftOf="@+id/linearLayout1"
             android:ems="10" >
-
-            <requestFocus />
         </EditText>
 
         <ImageButton
@@ -34,8 +32,8 @@
             android:layout_alignTop="@+id/linearLayout1"
             android:layout_marginLeft="30dp"
             android:layout_toRightOf="@+id/linearLayout1"
-            android:src="@drawable/abc_ic_search" 
-            android:clickable="true"/>
+            android:clickable="true"
+            android:src="@drawable/abc_ic_search" />
     </LinearLayout>
 
     <LinearLayout
