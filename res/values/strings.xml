@@ -3,6 +3,7 @@
 
     <string name="app_name">Project Sports</string>
     <string name="title_activity_activity_inscription">Registration</string>
+    <string name="title_activity_recherche">Search a group</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="login">Login</string>
@@ -21,9 +22,12 @@
     <string name="month">MM</string>
     <string name="year">YYYY</string>
     <string name="gender">Gender</string>
-    <string name="radioMale">Male</string>
-    <string name="radioFemale">Female</string>
+    <string name="radioM">Male</string>
+    <string name="radioF">Female</string>
     <string name="email">Email</string>
     <string name="choosesport">Choose your 3 favorite sports</string>
+    <string name="inscriOK">Validate registration</string>
+    <string name="passNotEqual">Password and confirm aren\'t the same!</string>
+    <string name="userCreate">Congratulations, account created !</string>
 
 </resources>

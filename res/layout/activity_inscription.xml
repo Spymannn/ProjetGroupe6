@@ -38,7 +38,6 @@
 	            android:hint="@string/name"
 	            android:inputType="textPersonName" >
 
-	            <requestFocus />
 	        </EditText>
 
 	        <EditText
@@ -126,13 +125,13 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:checked="true"
-	            android:text="@string/radioMale" />
+	            android:text="@string/radioM" />
 
 	        <RadioButton
 	            android:id="@+id/radioFemale"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:text="@string/radioFemale" />
+	            android:text="@string/radioF" />
 	    </RadioGroup>
 
 	    <TextView
@@ -154,7 +153,13 @@
 	        android:id="@+id/spinnerSport3"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content" />
-
+	    
+		<Button
+		    android:id="@+id/inscriptionOK"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="@string/inscriOK" 
+		    android:clickable="true"/>
 	</LinearLayout>
 
 </RelativeLayout>
