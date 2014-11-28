@@ -208,7 +208,7 @@ public class MainActivity extends ActionBarActivity {
 					 super.onPostExecute(result);
 					  pgd.dismiss();
 					  if(result){
-						  Intent i2 = new Intent(MainActivity.this,InscriptionActivity.class);
+						  Intent i2 = new Intent(MainActivity.this,RechercheGroupeActivity.class);
 						  startActivity(i2);
 					  
 					  }

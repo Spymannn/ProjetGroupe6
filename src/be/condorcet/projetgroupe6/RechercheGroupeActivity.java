@@ -4,13 +4,22 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 public class RechercheGroupeActivity extends ActionBarActivity {
+	
+	private EditText texteRech = null;
+	private ImageButton rech = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_recherche_groupe);
+		
+		texteRech = (EditText)findViewById(R.id.textRech);
+		rech = (ImageButton)findViewById(R.id.launchRech);
 	}
 
 	@Override

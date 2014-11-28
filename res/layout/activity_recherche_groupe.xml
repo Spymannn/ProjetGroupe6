@@ -16,7 +16,7 @@
         android:orientation="horizontal" >
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/textRech"
             android:layout_width="192dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -28,13 +28,14 @@
         </EditText>
 
         <ImageButton
-            android:id="@+id/imageButton1"
+            android:id="@+id/launchRech"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/linearLayout1"
             android:layout_marginLeft="30dp"
             android:layout_toRightOf="@+id/linearLayout1"
-            android:src="@drawable/abc_ic_search" />
+            android:src="@drawable/abc_ic_search" 
+            android:clickable="true"/>
     </LinearLayout>
 
     <LinearLayout
