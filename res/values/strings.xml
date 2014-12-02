@@ -28,6 +28,7 @@
     <string name="choosesport">Choose your 3 favorite sports</string>
     <string name="inscriOK">Validate registration</string>
     <string name="passNotEqual">Password and confirm aren\'t the same!</string>
+    <string name="chooseDifferent">Please, choose different sports</string>
     <string name="userCreate">Congratulations, account created !</string>
 
 </resources>

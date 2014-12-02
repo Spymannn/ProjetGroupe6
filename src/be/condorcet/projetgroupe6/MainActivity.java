@@ -3,8 +3,10 @@ package be.condorcet.projetgroupe6;
 
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import be.condorcet.projetgroupe.modele.DBConnection;
+import be.condorcet.projetgroupe.modele.SportDB;
 import be.condorcet.projetgroupe.modele.UtilisateurDB;
 import android.support.v7.app.ActionBarActivity;
 import android.app.ProgressDialog;
@@ -28,7 +30,6 @@ public class MainActivity extends ActionBarActivity {
 	private Button login;
 	private Connection con = null;
 	
-	//Test commit te
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -93,12 +94,13 @@ public class MainActivity extends ActionBarActivity {
 	          con.close();
 	          con=null;
 	          //Mettre les trucs à traduire
-	          //Log.d("connexion","deconnexion OK");
+	          Log.d("connexion","deconnexion OK ?");
 	          }
 	          catch (Exception e) { 
+	        	  Log.d("connexion","decconnexion bug"+e);
 	          }
 		 //Mettre les trucs à traduire
-		 //Log.d("connexion","deconnexion OK");
+		 Log.d("connexion","deconnexion entre dans le destroy OK");
 		
 	}
 	
@@ -151,8 +153,11 @@ public class MainActivity extends ActionBarActivity {
 				protected Boolean doInBackground(String... arg0) {
 					//String..arg0 c'est un tableau d'argument
 					Log.d("verifdb", "backIn");
-										
+					boolean flag = true;
+					
+					
 				   if(con==null){//premier invocation
+					  
 					   Log.d("verifdb", "backIn1");
 					   con = new DBConnection().getConnection(); 
 				    	if(con==null) {
@@ -165,6 +170,10 @@ public class MainActivity extends ActionBarActivity {
 					   UtilisateurDB.setConnection(con);
 					   Log.d("verifdb", "backIn3");
 				   }
+				   else{
+					   UtilisateurDB.setConnection(con);
+				   }
+				   
 				   String ps = pseudo.getText().toString();
 				   String pass = mdp.getText().toString();	
 				    /**
@@ -186,7 +195,7 @@ public class MainActivity extends ActionBarActivity {
 			        	//Log.d("pass","test 3 : "+password+" erreur"+e.getMessage());
 			         //resultat="erreur" +e.getMessage(); 
 			        	//Traduction ICI
-			        	resultat = "User not found!";
+			        	resultat = "User not found!" + ps + pass + e;
 			         
 			         return false;
 			         
@@ -210,7 +219,6 @@ public class MainActivity extends ActionBarActivity {
 					  if(result){
 						  Intent i2 = new Intent(MainActivity.this,RechercheGroupeActivity.class);
 						  startActivity(i2);
-					  
 					  }
 					  else{
 				        	Toast.makeText(MainActivity.this, resultat, Toast.LENGTH_SHORT).show();

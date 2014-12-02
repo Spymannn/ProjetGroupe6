@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 
 
+
 import android.view.View;
 import android.view.View.OnClickListener;
 import be.condorcet.projetgroupe.modele.DBConnection;
@@ -88,10 +89,11 @@ public class InscriptionActivity extends ActionBarActivity {
 					}	
 				}
 				else{
-					Toast.makeText(InscriptionActivity.this,"choose different sports",Toast.LENGTH_SHORT).show();
+					Toast.makeText(InscriptionActivity.this,R.string.chooseDifferent,Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
+	
 		
 		/**
 		 * Fin du test ici
@@ -117,20 +119,52 @@ public class InscriptionActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	@Override
+	
 	public void onDestroy(){
 		super.onDestroy();
-		 try {
-	          con.close();
-	          con=null;
-	          //Mettre les trucs à traduire
-	          //Log.d("connexion","deconnexion OK");
-	          }
-	          catch (Exception e) { 
-	          }
-		 //Mettre les trucs à traduire
-		 //Log.d("connexion","deconnexion OK");
+		DestroyTask dt= new DestroyTask(InscriptionActivity.this);
+		dt.execute();
 		
+	}
+	private class DestroyTask extends AsyncTask<String,Integer,Boolean>{
+		
+		public DestroyTask(InscriptionActivity pActivity) {
+			
+			link(pActivity);
+			// TODO Auto-generated constructor stub
+		}
+
+		private void link(InscriptionActivity  pActivity) {
+			// TODO Auto-generated method stub
+		
+			
+		}
+		protected void onPreExecute(){
+			 super.onPreExecute();
+										
+		}
+		
+		protected Boolean doInBackground(String... arg0){
+			 try {
+				 if(con == null){
+					 Log.d("connexion","la connexion est null");
+				 }
+		          con.close();
+		          con=null;
+		          //Mettre les trucs à traduire
+		          Log.d("connexion","deconnexion inscri OK");
+		          }
+		          catch (Exception e) { 
+		        	  Log.d("connexion","deconnexion insci bug"+e);
+		          }
+			 //Mettre les trucs à traduire
+			return true;
+		}
+		protected void onPostExecute(Boolean result){
+			 super.onPostExecute(result);
+			 
+		}
+	
 	}
 	
 	class MyAccessDBAfficheListe extends AsyncTask<String,Integer,Boolean> {
@@ -324,15 +358,13 @@ public class InscriptionActivity extends ActionBarActivity {
 	        			gend = getString(R.string.radioF);
 	        		}
 			        try{
-			        		
-			        		
-			        		UtilisateurDB user = new UtilisateurDB(name.getText().toString(),
+			        	UtilisateurDB user = new UtilisateurDB(name.getText().toString(),
 			        				fname.getText().toString(),passe.getText().toString(),
 			        				pseudo.getText().toString(),mail.getText().toString(),
 			        				dd.getText().toString()+"/"+mm.getText().toString()+"/"+yyyy.getText().toString(),
 			        				gend,listeSport1.getSelectedItem().toString(),listeSport2.getSelectedItem().toString(),
 			        				listeSport3.getSelectedItem().toString());
-		        			user.create();
+		        		user.create();
 			           		           
 			        }
 			        catch(Exception e){		
@@ -340,12 +372,7 @@ public class InscriptionActivity extends ActionBarActivity {
 			        	//Log.d("pass","test 3 : "+password+" erreur"+e.getMessage());
 			         //resultat="erreur" +e.getMessage(); 
 			        	//Traduction ICI
-			        	resultat = "Error during creation! "+ name.getText().toString()+
-		        				fname.getText().toString()+passe.getText().toString()+
-		        				pseudo.getText().toString()+mail.getText().toString()+
-		        				dd.getText().toString()+"/"+mm.getText().toString()+"/"+yyyy.getText().toString()+
-		        				gend+listeSport1.getSelectedItem().toString()+listeSport2.getSelectedItem().toString()+
-		        				listeSport3.getSelectedItem().toString();
+			        	resultat = "Error during creation! ";
 			        	//Toast.makeText(InscriptionActivity.this,listeSport3.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
 			         
 			         return false;
