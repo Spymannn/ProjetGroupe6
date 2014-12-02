@@ -107,6 +107,7 @@ public class MainActivity extends ActionBarActivity {
 	class MyAccessDBConnect extends AsyncTask<String,Integer,Boolean> {
 	    private String resultat,password;
 	    private ProgressDialog pgd=null;
+	    int idUser = 0;
 	    
 							
 				public MyAccessDBConnect(MainActivity pActivity) {
@@ -187,6 +188,7 @@ public class MainActivity extends ActionBarActivity {
 			           user.read();
 			           resultat=user.toString();
 			           password = user.getMdp();
+			           idUser = user.getIdUser();
 			           //Log.d("pass","test 2 : "+password);
 			           		           
 			        }
@@ -218,6 +220,7 @@ public class MainActivity extends ActionBarActivity {
 					  pgd.dismiss();
 					  if(result){
 						  Intent i2 = new Intent(MainActivity.this,RechercheGroupeActivity.class);
+						  i2.putExtra("IDUSER",idUser);
 						  startActivity(i2);
 					  }
 					  else{

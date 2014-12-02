@@ -5,10 +5,12 @@ import java.util.ArrayList;
 
 import be.condorcet.projetgroupe.modele.DBConnection;
 import be.condorcet.projetgroupe.modele.GroupeDB;
+import be.condorcet.projetgroupe.modele.ParticipantDB;
 import be.condorcet.projetgroupe.modele.SportDB;
 import be.condorcet.projetgroupe.modele.UtilisateurDB;
 import android.support.v7.app.ActionBarActivity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -26,13 +28,17 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 	private ImageButton rech = null;
 	private ListView listeGroupe = null;
 	private ArrayList<String> listeNomGroupe = null;
+	private int idUs = 0;
 	
 	private Connection con = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState); 
 		setContentView(R.layout.activity_recherche_groupe);
+		
+		Intent i = getIntent();
+		idUs = i.getIntExtra("IDUSER",idUs);
 		
 		texteRech = (EditText)findViewById(R.id.buttonRech);
 		rech = (ImageButton)findViewById(R.id.launchRech);
@@ -70,6 +76,8 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 	    private String resultat;
 	    private ProgressDialog pgd=null;
 	    private ArrayList<GroupeDB> listeGroupesDB = new ArrayList<GroupeDB>();
+	    private ArrayList<GroupeDB> listeGroupesDB2 = new ArrayList<GroupeDB>();
+	    private ArrayList<ParticipantDB> tabPart = new ArrayList<ParticipantDB>();
 	    private int posChoix = 0;
 	    
 							
@@ -114,12 +122,14 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 				    	GroupeDB.setConnection(con);
 				    	UtilisateurDB.setConnection(con);
 					   SportDB.setConnection(con);
+					   ParticipantDB.setConnection(con);
 					   //Log.d("verifdb", "backIn3");
 				   }
 				   else{
 					   GroupeDB.setConnection(con);
 					   UtilisateurDB.setConnection(con);
 					   SportDB.setConnection(con);
+					   ParticipantDB.setConnection(con);
 				   }
 				   
 				    /**
@@ -128,7 +138,35 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 				     */
 				   //Log.d("pass","test 1 : "+password+ "pseudo : "+ps);
 			        try{
-			        	listeGroupesDB = GroupeDB.afficheTousGroupe();
+			        	tabPart = null;
+			        	listeGroupesDB2 = GroupeDB.afficheTousGroupe();
+			        	try{
+			        	ParticipantDB p = new ParticipantDB(idUs);
+			        	tabPart = p.listeGroupe();
+			        	}
+			        	catch(Exception ex){
+			        		
+			        	}
+			        	if(tabPart!=null){
+			        		for(int i = 0;i<listeGroupesDB2.size();i++){
+				        		boolean flag = true;
+				        		for(int j = 0;j<tabPart.size();j++){
+				        			if(listeGroupesDB2.get(i).getIdGroupe()==tabPart.get(j).getIdGroupe()){
+				        				flag = false;
+				        			}
+				        		}
+				        		if(flag){
+				        			listeGroupesDB.add(listeGroupesDB2.get(i));
+				        		}
+				        	}
+			        	}
+			        	else{
+			        		for(int i = 0;i<listeGroupesDB2.size();i++){
+			        			listeGroupesDB.add(listeGroupesDB2.get(i));
+			        		}
+			        	}
+			        	
+			        	
 			           		           
 			        }
 			        catch(Exception e){		
@@ -136,7 +174,7 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 			        	//Log.d("pass","test 3 : "+password+" erreur"+e.getMessage());
 			         //resultat="erreur" +e.getMessage(); 
 			        	//Traduction ICI
-			        	resultat = "Sports not found!";
+			        	resultat = "Groups not found!"+e;
 			         
 			         return false;
 			         
