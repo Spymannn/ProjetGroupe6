@@ -216,6 +216,10 @@ public class InscriptionActivity extends ActionBarActivity {
 					   SportDB.setConnection(con);
 					   //Log.d("verifdb", "backIn3");
 				   }
+				   else{
+					   UtilisateurDB.setConnection(con);
+					   SportDB.setConnection(con);
+				   }
 				   
 				    /**
 				     * Cette connexion devra être lancée ici
@@ -342,6 +346,10 @@ public class InscriptionActivity extends ActionBarActivity {
 					   SportDB.setConnection(con);
 					   //PreferenceDB.setConnection(con);
 					   //Log.d("verifdb", "backIn3");
+				   }
+				   else{
+					   UtilisateurDB.setConnection(con);
+					   SportDB.setConnection(con);
 				   }
 				   
 				    /**

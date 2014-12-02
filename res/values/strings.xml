@@ -30,5 +30,6 @@
     <string name="passNotEqual">Password and confirm aren\'t the same!</string>
     <string name="chooseDifferent">Please, choose different sports</string>
     <string name="userCreate">Congratulations, account created !</string>
+    <string name="searchGroup">Search your group here!</string>
 
 </resources>
