@@ -1,6 +1,7 @@
 <!--  <?xml version="1.0" encoding="utf-8"?> -->
 <resources>
-    <color name="textColorCB">#ACD6FF</color>
+    <color name="textColorCB">#069BFE</color>
     <color name="BackgroundCB">#001b36</color>
+    <color name="backGroundAct">#069BFE</color>
     <!-- test -->
 </resources>
