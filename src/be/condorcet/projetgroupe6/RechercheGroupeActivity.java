@@ -13,8 +13,11 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +32,7 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 	private ListView listeGroupe = null;
 	private ArrayList<String> listeNomGroupe = null;
 	private int idUs = 0;
+	private String gpeChoisi = null;
 	
 	private Connection con = null;
 
@@ -49,7 +53,21 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 		MyAccessDBAfficheGroupe aff = new MyAccessDBAfficheGroupe(RechercheGroupeActivity.this);
 		aff.execute();
 		
-		
+		listeGroupe.setOnItemClickListener(
+				new ListView.OnItemClickListener() {
+				@Override
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+				         //Toast.makeText(RechercheGroupeActivity.this,""+ listeGroupe.getItemAtPosition(position),Toast.LENGTH_SHORT).show();
+						gpeChoisi = listeGroupe.getItemAtPosition(position).toString().trim().substring(0,listeGroupe.getItemAtPosition(position).toString().trim().length()-6).trim();
+			         //Toast.makeText(RechercheGroupeActivity.this,gpeChoisi,Toast.LENGTH_SHORT).show();
+						MyAccessDBParticipationGpe part = new MyAccessDBParticipationGpe(RechercheGroupeActivity.this);
+						part.execute();
+						
+					}
+				}
+				
+		);
 	}
 
 	@Override
@@ -70,7 +88,53 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	public void onDestroy(){
+		super.onDestroy();
+		DestroyTask dt= new DestroyTask(RechercheGroupeActivity.this);
+		dt.execute();
+		
+	}
+	private class DestroyTask extends AsyncTask<String,Integer,Boolean>{
+		
+		public DestroyTask(RechercheGroupeActivity RechercheGroupeActivity) {
+			
+			link(RechercheGroupeActivity);
+			// TODO Auto-generated constructor stub
+		}
 
+		private void link(RechercheGroupeActivity  pActivity) {
+			// TODO Auto-generated method stub
+		
+			
+		}
+		protected void onPreExecute(){
+			 super.onPreExecute();
+										
+		}
+		
+		protected Boolean doInBackground(String... arg0){
+			 try {
+				 if(con == null){
+					 Log.d("connexion","la connexion est null");
+				 }
+		          con.close();
+		          con=null;
+		          //Mettre les trucs à traduire
+		          Log.d("connexion","deconnexion inscri OK");
+		          }
+		          catch (Exception e) { 
+		        	  Log.d("connexion","deconnexion insci bug"+e);
+		          }
+			 //Mettre les trucs à traduire
+			return true;
+		}
+		protected void onPostExecute(Boolean result){
+			 super.onPostExecute(result);
+			 
+		}
+	
+	}
 
 	class MyAccessDBAfficheGroupe extends AsyncTask<String,Integer,Boolean> {
 	    private String resultat;
@@ -145,7 +209,6 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 			        	tabPart = p.listeGroupe();
 			        	}
 			        	catch(Exception ex){
-			        		
 			        	}
 			        	if(tabPart!=null){
 			        		for(int i = 0;i<listeGroupesDB2.size();i++){
@@ -164,10 +227,7 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 			        		for(int i = 0;i<listeGroupesDB2.size();i++){
 			        			listeGroupesDB.add(listeGroupesDB2.get(i));
 			        		}
-			        	}
-			        	
-			        	
-			           		           
+			        	}	           
 			        }
 			        catch(Exception e){		
 			        	//Traduction ici
@@ -191,10 +251,10 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 					  pgd.dismiss();
 					  if(result){
 						  for(int i = 0;i<listeGroupesDB.size();i++){
-							  listeNomGroupe.add(listeGroupesDB.get(i).getNomGroupe());
+							  listeNomGroupe.add(listeGroupesDB.get(i).getNomGroupe()+ "        "+ listeGroupesDB.get(i).getNbrUser()+ "/"+listeGroupesDB.get(i).getMaxUser());
 						  }
 						  ArrayAdapter<String> adapter = new ArrayAdapter<String>(RechercheGroupeActivity.this,android.R.layout.simple_selectable_list_item,listeNomGroupe);
-					      listeGroupe.setAdapter(adapter);
+						  listeGroupe.setAdapter(adapter);
 					  }
 					  else{
 				        	Toast.makeText(RechercheGroupeActivity.this, resultat, Toast.LENGTH_SHORT).show();
@@ -202,5 +262,111 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 					  }		
 				}
 			}
+	
+	class MyAccessDBParticipationGpe extends AsyncTask<String,Integer,Boolean> {
+	    private String resultat;
+	    private ProgressDialog pgd=null;
+	    private ArrayList<GroupeDB> listeGroupesDB = new ArrayList<GroupeDB>();
+	    private ArrayList<GroupeDB> listeGroupesDB2 = new ArrayList<GroupeDB>();
+	    private ArrayList<ParticipantDB> tabPart = new ArrayList<ParticipantDB>();
+	    private int posChoix = 0;
+	    
+							
+				public MyAccessDBParticipationGpe (RechercheGroupeActivity pActivity) {
+				
+					link(pActivity);
+					// TODO Auto-generated constructor stub
+				}
 
+				private void link(RechercheGroupeActivity  pActivity) {
+					// TODO Auto-generated method stub
+				
+					
+				}
+				protected void onPreExecute(){
+					 super.onPreExecute();
+					 //Log.d("verifdb", "connection ok0");
+			         pgd=new ProgressDialog(RechercheGroupeActivity.this);
+			         
+			         //Faire la traduction ICI !
+					 pgd.setMessage("chargement en cours");
+					 pgd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		     		 pgd.show();
+												
+				}
+								
+				@Override
+				protected Boolean doInBackground(String... arg0) {
+					//String..arg0 c'est un tableau d'argument
+					//Log.d("verifdb", "backIn");
+										
+				   if(con==null){//premier invocation
+					   //Log.d("verifdb", "backIn1");
+					   con = new DBConnection().getConnection(); 
+				    	if(con==null) {
+				    		//Log.d("verifdb", "backIn2");
+				    		//à traduire ici
+				    		resultat="echec de la connexion";
+				    		return false;//avec le return on sort, si pas on poursuit
+					    }
+				       //Log.d("verifdb", "connection ok1");
+				    	GroupeDB.setConnection(con);
+				    	UtilisateurDB.setConnection(con);
+					   SportDB.setConnection(con);
+					   ParticipantDB.setConnection(con);
+					   //Log.d("verifdb", "backIn3");
+				   }
+				   else{
+					   GroupeDB.setConnection(con);
+					   UtilisateurDB.setConnection(con);
+					   SportDB.setConnection(con);
+					   ParticipantDB.setConnection(con);
+				   }
+				   
+				    /**
+				     * Cette connexion devra être lancée ici
+				     * dans toutes les classesDB, on mets tout ici
+				     */
+				   //Log.d("pass","test 1 : "+password+ "pseudo : "+ps);
+			        try{
+			        	GroupeDB g = new GroupeDB(gpeChoisi);
+			        	g.read();
+			        	ParticipantDB p = new ParticipantDB(idUs,g.getIdGroupe());
+			        	p.create();
+			        	
+			        	//traduction ici
+			        	resultat = "Vous êtes inscrit dans le groupe "+ gpeChoisi;
+			        }
+			        catch(Exception e){		
+			        	//Traduction ici
+			        	//Log.d("pass","test 3 : "+password+" erreur"+e.getMessage());
+			         //resultat="erreur" +e.getMessage(); 
+			        	//Traduction ICI
+			        	resultat = "erreur création participant!"+e;
+			         
+			         return false;
+			         
+			         }
+			        return true;
+				}
+				/**
+				 * Ici, c'est après l'execution
+				 * on fait disparaitre la progressbar avec dismiss();
+				 * @param result
+				 */
+				protected void onPostExecute(Boolean result){
+					 super.onPostExecute(result);
+					  pgd.dismiss();
+					  if(result){
+						  Toast.makeText(RechercheGroupeActivity.this, resultat, Toast.LENGTH_SHORT).show();
+						  //test de refresh l'activité
+						  finish();
+						  startActivity(getIntent());
+					  }
+					  else{
+				        	Toast.makeText(RechercheGroupeActivity.this, resultat, Toast.LENGTH_SHORT).show();
+
+					  }		
+				}
+			}
 }

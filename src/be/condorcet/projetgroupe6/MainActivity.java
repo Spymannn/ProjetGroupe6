@@ -175,8 +175,8 @@ public class MainActivity extends ActionBarActivity {
 					   UtilisateurDB.setConnection(con);
 				   }
 				   
-				   String ps = pseudo.getText().toString();
-				   String pass = mdp.getText().toString();	
+				   String ps = pseudo.getText().toString().trim();
+				   String pass = mdp.getText().toString().trim();	
 				    /**
 				     * Cette connexion devra être lancée ici
 				     * dans toutes les classesDB, on mets tout ici

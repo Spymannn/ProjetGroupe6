@@ -366,9 +366,9 @@ public class InscriptionActivity extends ActionBarActivity {
 	        			gend = getString(R.string.radioF);
 	        		}
 			        try{
-			        	UtilisateurDB user = new UtilisateurDB(name.getText().toString(),
-			        				fname.getText().toString(),passe.getText().toString(),
-			        				pseudo.getText().toString(),mail.getText().toString(),
+			        	UtilisateurDB user = new UtilisateurDB(name.getText().toString().trim(),
+			        				fname.getText().toString().trim(),passe.getText().toString().trim(),
+			        				pseudo.getText().toString().trim(),mail.getText().toString().trim(),
 			        				dd.getText().toString()+"/"+mm.getText().toString()+"/"+yyyy.getText().toString(),
 			        				gend,listeSport1.getSelectedItem().toString(),listeSport2.getSelectedItem().toString(),
 			        				listeSport3.getSelectedItem().toString());
