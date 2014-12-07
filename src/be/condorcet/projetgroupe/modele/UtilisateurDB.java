@@ -7,9 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
-public class UtilisateurDB extends Utilisateur implements CRUD{
+public class UtilisateurDB extends Utilisateur implements CRUD, Parcelable{
 	/**
 	  * connexion à la base de données partagée entre toutes les instances(statique)
 	  */
@@ -218,6 +220,49 @@ public class UtilisateurDB extends Utilisateur implements CRUD{
            catch (Exception e){}
        }
     }
+	
+	/**
+	 * Recherche d'un user par id
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	public static UtilisateurDB afficheUserParId(int id)throws Exception{
+	    String req = "select * from utilisateur where iduser = "+id; 
+       PreparedStatement  pstmt=null;
+       UtilisateurDB us = null;
+	    try{
+	    	pstmt=dbConnect.prepareStatement(req);
+    	    ResultSet rs=(ResultSet)pstmt.executeQuery();
+    	    boolean ok = false;
+    	    if(rs.next()){
+           	ok = true;
+           	int idUser = rs.getInt("idUser");
+           	String nomUser = rs.getString("nomUser");
+           	String prenomUser = rs.getString("prenomUser");
+           	String mdp = rs.getString("mdp");
+           	String pseudoUser = rs.getString("pseudoUser");
+           	String email = rs.getString("email");
+           	String dateNaissance = rs.getString("dateNaissance");
+           	String gender = rs.getString("gender");
+           	
+           	us = new UtilisateurDB(idUser,nomUser, prenomUser,mdp,pseudoUser,email,dateNaissance,gender);
+	      }
+	   
+             if(!ok)throw new Exception("id inconnu");
+             else return us;
+	     }
+	     catch(Exception e){
+		
+               throw new Exception("Erreur de lecture "+e.getMessage());
+            }
+           finally{//effectué dans tous les cas 
+           try{
+             pstmt.close();
+           }
+           catch (Exception e){}
+       }
+    }
 	/**
 	 * Update du nom d'un utilisateur
 	 */
@@ -271,6 +316,16 @@ public class UtilisateurDB extends Utilisateur implements CRUD{
 	            }
 	            catch (Exception e){}
 	          }
+		
+	}
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		// TODO Auto-generated method stub
 		
 	}
 

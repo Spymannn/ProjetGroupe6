@@ -7,9 +7,11 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="21" />
-	<uses-permission android:name="android.permission.INTERNET" /> 
-	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -17,7 +19,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,6 +41,10 @@
         <activity
             android:name=".RechercheGroupeActivity"
             android:label="@string/title_activity_recherche" >
+        </activity>
+        <activity
+            android:name=".GpeInscription"
+            android:label="@string/title_activity_gpe_inscription" >
         </activity>
     </application>
 

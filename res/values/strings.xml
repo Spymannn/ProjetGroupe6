@@ -31,5 +31,8 @@
     <string name="chooseDifferent">Please, choose different sports</string>
     <string name="userCreate">Congratulations, account created !</string>
     <string name="searchGroup">Search your group here!</string>
+    <string name="title_activity_gpe_inscription">Group registration</string>
+    <string name="enterPassword">Please enter the group\'s password :</string>
+    <string name="validation">Validation</string>
 
 </resources>

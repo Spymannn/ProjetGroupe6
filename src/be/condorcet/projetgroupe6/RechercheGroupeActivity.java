@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -33,6 +34,7 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 	private ArrayList<String> listeNomGroupe = null;
 	private int idUs = 0;
 	private String gpeChoisi = null;
+	private  ArrayAdapter<String> adapter= null;
 	
 	private Connection con = null;
 
@@ -44,7 +46,7 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 		Intent i = getIntent();
 		idUs = i.getIntExtra("IDUSER",idUs);
 		
-		texteRech = (EditText)findViewById(R.id.buttonRech);
+		texteRech = (EditText)findViewById(R.id.texteRech);
 		rech = (ImageButton)findViewById(R.id.launchRech);
 		listeGroupe = (ListView)findViewById(R.id.listViewGroupe);
 		
@@ -60,14 +62,32 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 							int position, long id) {
 				         //Toast.makeText(RechercheGroupeActivity.this,""+ listeGroupe.getItemAtPosition(position),Toast.LENGTH_SHORT).show();
 						gpeChoisi = listeGroupe.getItemAtPosition(position).toString().trim().substring(0,listeGroupe.getItemAtPosition(position).toString().trim().length()-6).trim();
-			         //Toast.makeText(RechercheGroupeActivity.this,gpeChoisi,Toast.LENGTH_SHORT).show();
-						MyAccessDBParticipationGpe part = new MyAccessDBParticipationGpe(RechercheGroupeActivity.this);
-						part.execute();
+						Intent i = new Intent(RechercheGroupeActivity.this,GpeInscription.class);
+						i.putExtra("NOMGPE",gpeChoisi);
+						i.putExtra("IDUSER",idUs);
+						startActivity(i);
+						//Toast.makeText(RechercheGroupeActivity.this,gpeChoisi,Toast.LENGTH_SHORT).show();
+						//MyAccessDBParticipationGpe part = new MyAccessDBParticipationGpe(RechercheGroupeActivity.this);
+						//part.execute();
 						
 					}
 				}
 				
 		);
+		
+		rech.setOnClickListener(
+				new OnClickListener(){
+
+					@Override
+					public void onClick(View v) {
+						MyAccessDBAfficheGroupeRech gpeRech = new MyAccessDBAfficheGroupeRech(RechercheGroupeActivity.this);
+						gpeRech.execute();
+						
+					}
+					
+				}
+				
+				);
 	}
 
 	@Override
@@ -205,16 +225,20 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 			        	tabPart = null;
 			        	listeGroupesDB2 = GroupeDB.afficheTousGroupe();
 			        	try{
-			        	ParticipantDB p = new ParticipantDB(idUs);
-			        	tabPart = p.listeGroupe();
+				        	ParticipantDB p = new ParticipantDB(idUs);
+				        	tabPart = p.listeGroupe();
 			        	}
-			        	catch(Exception ex){
-			        	}
+			        	catch(Exception ex){}
+			        	
 			        	if(tabPart!=null){
 			        		for(int i = 0;i<listeGroupesDB2.size();i++){
 				        		boolean flag = true;
 				        		for(int j = 0;j<tabPart.size();j++){
-				        			if(listeGroupesDB2.get(i).getIdGroupe()==tabPart.get(j).getIdGroupe()){
+				        			/**
+				        			 * La liste de groupe n'affiche pas les gpes où l'utilisateur est déjà inscrit
+				        			 * et/ou où l'utilisateur est administrateur
+				        			 */
+				        			if(listeGroupesDB2.get(i).getIdGroupe()==tabPart.get(j).getIdGroupe() || listeGroupesDB2.get(i).getAdmin()==idUs){
 				        				flag = false;
 				        			}
 				        		}
@@ -253,7 +277,141 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 						  for(int i = 0;i<listeGroupesDB.size();i++){
 							  listeNomGroupe.add(listeGroupesDB.get(i).getNomGroupe()+ "        "+ listeGroupesDB.get(i).getNbrUser()+ "/"+listeGroupesDB.get(i).getMaxUser());
 						  }
-						  ArrayAdapter<String> adapter = new ArrayAdapter<String>(RechercheGroupeActivity.this,android.R.layout.simple_selectable_list_item,listeNomGroupe);
+						  adapter = new ArrayAdapter<String>(RechercheGroupeActivity.this,android.R.layout.simple_selectable_list_item,listeNomGroupe);
+						  adapter.setNotifyOnChange(true);
+						  listeGroupe.setAdapter(adapter);
+					  }
+					  else{
+				        	Toast.makeText(RechercheGroupeActivity.this, resultat, Toast.LENGTH_SHORT).show();
+
+					  }		
+				}
+			}
+	
+	
+	class MyAccessDBAfficheGroupeRech extends AsyncTask<String,Integer,Boolean> {
+	    private String resultat;
+	    private ProgressDialog pgd=null;
+	    private ArrayList<GroupeDB> listeGroupesDB = new ArrayList<GroupeDB>();
+	    private ArrayList<GroupeDB> listeGroupesDB2 = new ArrayList<GroupeDB>();
+	    private ArrayList<ParticipantDB> tabPart = new ArrayList<ParticipantDB>();
+	    private int posChoix = 0;
+	    
+							
+				public MyAccessDBAfficheGroupeRech(RechercheGroupeActivity pActivity) {
+				
+					link(pActivity);
+					// TODO Auto-generated constructor stub
+				}
+
+				private void link(RechercheGroupeActivity  pActivity) {
+					// TODO Auto-generated method stub
+				
+					
+				}
+				protected void onPreExecute(){
+					 super.onPreExecute();
+					 //Log.d("verifdb", "connection ok0");
+			         pgd=new ProgressDialog(RechercheGroupeActivity.this);
+			         
+			         //Faire la traduction ICI !
+					 pgd.setMessage("chargement en cours");
+					 pgd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		     		 pgd.show();
+												
+				}
+								
+				@Override
+				protected Boolean doInBackground(String... arg0) {
+					//String..arg0 c'est un tableau d'argument
+					//Log.d("verifdb", "backIn");
+										
+				   if(con==null){//premier invocation
+					   //Log.d("verifdb", "backIn1");
+					   con = new DBConnection().getConnection(); 
+				    	if(con==null) {
+				    		//Log.d("verifdb", "backIn2");
+				    		//à traduire ici
+				    		resultat="echec de la connexion";
+				    		return false;//avec le return on sort, si pas on poursuit
+					    }
+				       //Log.d("verifdb", "connection ok1");
+				    	GroupeDB.setConnection(con);
+				    	UtilisateurDB.setConnection(con);
+					   SportDB.setConnection(con);
+					   ParticipantDB.setConnection(con);
+					   //Log.d("verifdb", "backIn3");
+				   }
+				   else{
+					   GroupeDB.setConnection(con);
+					   UtilisateurDB.setConnection(con);
+					   SportDB.setConnection(con);
+					   ParticipantDB.setConnection(con);
+				   }
+				   
+				    /**
+				     * Cette connexion devra être lancée ici
+				     * dans toutes les classesDB, on mets tout ici
+				     */
+				   //Log.d("pass","test 1 : "+password+ "pseudo : "+ps);
+			        try{
+			        	tabPart = null;
+			        	listeGroupesDB2 = GroupeDB.afficheTousGroupeRech(texteRech.getText().toString().trim());
+			        	try{
+				        	ParticipantDB p = new ParticipantDB(idUs);
+				        	tabPart = p.listeGroupe();
+			        	}
+			        	catch(Exception ex){}
+			        	
+			        	if(tabPart!=null){
+			        		for(int i = 0;i<listeGroupesDB2.size();i++){
+				        		boolean flag = true;
+				        		for(int j = 0;j<tabPart.size();j++){
+				        			/**
+				        			 * La liste de groupe n'affiche pas les gpes où l'utilisateur est déjà inscrit
+				        			 * et/ou où l'utilisateur est administrateur
+				        			 */
+				        			if(listeGroupesDB2.get(i).getIdGroupe()==tabPart.get(j).getIdGroupe() || listeGroupesDB2.get(i).getAdmin()==idUs){
+				        				flag = false;
+				        			}
+				        		}
+				        		if(flag){
+				        			listeGroupesDB.add(listeGroupesDB2.get(i));
+				        		}
+				        	}
+			        	}
+			        	else{
+			        		for(int i = 0;i<listeGroupesDB2.size();i++){
+			        			listeGroupesDB.add(listeGroupesDB2.get(i));
+			        		}
+			        	}	           
+			        }
+			        catch(Exception e){		
+			        	//Traduction ici
+			        	//Log.d("pass","test 3 : "+password+" erreur"+e.getMessage());
+			         //resultat="erreur" +e.getMessage(); 
+			        	//Traduction ICI
+			        	resultat = "Groups not found!"+e;
+			         
+			         return false;
+			         
+			         }
+			        return true;
+				}
+				/**
+				 * Ici, c'est après l'execution
+				 * on fait disparaitre la progressbar avec dismiss();
+				 * @param result
+				 */
+				protected void onPostExecute(Boolean result){
+					 super.onPostExecute(result);
+					  pgd.dismiss();
+					  if(result){
+						  for(int i = 0;i<listeGroupesDB.size();i++){
+							  listeNomGroupe.add(listeGroupesDB.get(i).getNomGroupe()+ "        "+ listeGroupesDB.get(i).getNbrUser()+ "/"+listeGroupesDB.get(i).getMaxUser());
+						  }
+						  adapter = new ArrayAdapter<String>(RechercheGroupeActivity.this,android.R.layout.simple_selectable_list_item,listeNomGroupe);
+						  adapter.setNotifyOnChange(true);
 						  listeGroupe.setAdapter(adapter);
 					  }
 					  else{

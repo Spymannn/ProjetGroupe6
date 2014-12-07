@@ -3,7 +3,10 @@ package be.condorcet.projetgroupe.modele;
 import java.sql.*;
 import java.util.*;
 
-public class GroupeDB extends Groupe implements CRUD {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class GroupeDB extends Groupe implements CRUD, Parcelable {
 	
 	protected static Connection dbConnect = null;
 	
@@ -185,6 +188,45 @@ public class GroupeDB extends Groupe implements CRUD {
 			catch (Exception e) {}
 		}
 	}
+	/**
+	 * Méthode qui permet de recherche une liste de gpe
+	 * avec une partie du nom du groupe
+	 * @param nomGpe
+	 * @return
+	 * @throws Exception
+	 */
+	public static ArrayList<GroupeDB> afficheTousGroupeRech(String nomGpe) throws Exception {
+		ArrayList<GroupeDB> groupes=new ArrayList<GroupeDB>();
+		String req = "select * from groupe where nomgroupe like '%"+nomGpe+"%'";
+		PreparedStatement pstmt=null;
+		try {
+			pstmt=dbConnect.prepareStatement(req);
+			ResultSet rs=(ResultSet)pstmt.executeQuery();
+			boolean ok = false;
+			while(rs.next()) {
+				ok = true;
+				int idGroupe = rs.getInt("idGroupe");
+				String nomGroupe = rs.getString("nomGroupe");
+				String mdpGroupe = rs.getString("mdpGroupe");
+				int idSport = rs.getInt("idSport");
+				int admin = rs.getInt("admin");
+				int maxUser = rs.getInt("maxUser");
+				int nbrUser = rs.getInt("nbrUser");
+				groupes.add(new GroupeDB(idGroupe,nomGroupe,mdpGroupe,idSport,admin,maxUser,nbrUser));
+			}
+			if(!ok)throw new Exception("nom inconnu");
+			else return groupes;
+		}
+		catch (Exception e) {
+			throw new Exception ("Erreur de lecture "+e.getMessage());
+		}
+		finally {
+			try {
+				pstmt.close();
+			}
+			catch (Exception e) {}
+		}
+	}
 	
 	public void updateNom() throws Exception {
 		CallableStatement cstmt = null;
@@ -251,6 +293,18 @@ public class GroupeDB extends Groupe implements CRUD {
 
 	@Override
 	public void update() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
 		// TODO Auto-generated method stub
 		
 	}
