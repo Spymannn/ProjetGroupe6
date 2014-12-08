@@ -39,28 +39,17 @@ public class MainActivity extends ActionBarActivity {
 		mdp = (EditText)findViewById(R.id.passwordE);
 		login = (Button)findViewById(R.id.connectB);
 		
-		signup.setOnClickListener(
-					new OnClickListener(){
-						public void onClick(View v){
-						//Intent i1 = new Intent(Activite1.this,Activite4.class);
-						Intent i2 = new Intent(MainActivity.this,InscriptionActivity.class);
-						//i1.putExtra("donneur", don);
-						
-						startActivity(i2);
-						//test changement Corentin
-						
-					}
-				});
-		login.setOnClickListener(
-				new OnClickListener(){
-					public void onClick(View v){
-						MyAccessDBConnect adb = new MyAccessDBConnect(MainActivity.this);
-						adb.execute();
-					
-				}
-			});
+	}
+	
+	public void sign(View view){
+		Intent i2 = new Intent(MainActivity.this,InscriptionActivity.class);
+		startActivity(i2);
 	}
 
+	public void log(View view){
+		MyAccessDBConnect adb = new MyAccessDBConnect(MainActivity.this);
+		adb.execute();
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

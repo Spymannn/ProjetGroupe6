@@ -67,7 +67,8 @@
             android:layout_height="wrap_content"
             android:text="@string/login"
             android:textColorHint="@color/BackgroundCB"
-            android:textColorLink="@color/textColorCB" />
+            android:textColorLink="@color/textColorCB"
+            android:onClick="log" />
 
     </LinearLayout>
 
@@ -82,6 +83,7 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="@string/signup"
+	        android:onClick="sign"
 	        android:clickable="true" />
 	        
 	         <TextView

@@ -72,34 +72,31 @@ public class InscriptionActivity extends ActionBarActivity {
 		
 		validate = (Button)findViewById(R.id.inscriptionOK);
 		
-		validate.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				if(!(listeSport1.getSelectedItem().toString().equals(listeSport2.getSelectedItem().toString())) 
-						&& !(listeSport2.getSelectedItem().toString().equals(listeSport3.getSelectedItem().toString())) 
-						&& !(listeSport1.getSelectedItem().toString().equals(listeSport3.getSelectedItem().toString()))){
-					
-					if(passe.getText().toString().equals(confpass.getText().toString())){
-						MyAccessDBInscription adbc = new MyAccessDBInscription(InscriptionActivity.this);
-						adbc.execute();
-					}
-					else{
-						Toast.makeText(InscriptionActivity.this,R.string.passNotEqual,Toast.LENGTH_SHORT).show();
-					}	
-				}
-				else{
-					Toast.makeText(InscriptionActivity.this,R.string.chooseDifferent,Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
+		
 	
 		
 		/**
 		 * Fin du test ici
 		 */
 	}
-
+	
+	public void inscription(View view){
+		if(!(listeSport1.getSelectedItem().toString().equals(listeSport2.getSelectedItem().toString())) 
+				&& !(listeSport2.getSelectedItem().toString().equals(listeSport3.getSelectedItem().toString())) 
+				&& !(listeSport1.getSelectedItem().toString().equals(listeSport3.getSelectedItem().toString()))){
+			
+			if(passe.getText().toString().equals(confpass.getText().toString())){
+				MyAccessDBInscription adbc = new MyAccessDBInscription(InscriptionActivity.this);
+				adbc.execute();
+			}
+			else{
+				Toast.makeText(InscriptionActivity.this,R.string.passNotEqual,Toast.LENGTH_SHORT).show();
+			}	
+		}
+		else{
+			Toast.makeText(InscriptionActivity.this,R.string.chooseDifferent,Toast.LENGTH_SHORT).show();
+		}
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

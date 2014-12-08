@@ -75,19 +75,12 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 				
 		);
 		
-		rech.setOnClickListener(
-				new OnClickListener(){
-
-					@Override
-					public void onClick(View v) {
-						MyAccessDBAfficheGroupeRech gpeRech = new MyAccessDBAfficheGroupeRech(RechercheGroupeActivity.this);
-						gpeRech.execute();
-						
-					}
-					
-				}
-				
-				);
+		
+	}
+	
+	public void rechercheGroupe(View view){
+		MyAccessDBAfficheGroupeRech gpeRech = new MyAccessDBAfficheGroupeRech(RechercheGroupeActivity.this);
+		gpeRech.execute();
 	}
 
 	@Override
@@ -391,7 +384,7 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 			        	//Log.d("pass","test 3 : "+password+" erreur"+e.getMessage());
 			         //resultat="erreur" +e.getMessage(); 
 			        	//Traduction ICI
-			        	resultat = "Groups not found!"+e;
+			        	resultat = "No groups found!";
 			         
 			         return false;
 			         
@@ -407,6 +400,7 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 					 super.onPostExecute(result);
 					  pgd.dismiss();
 					  if(result){
+						  listeNomGroupe.clear();
 						  for(int i = 0;i<listeGroupesDB.size();i++){
 							  listeNomGroupe.add(listeGroupesDB.get(i).getNomGroupe()+ "        "+ listeGroupesDB.get(i).getNbrUser()+ "/"+listeGroupesDB.get(i).getMaxUser());
 						  }
@@ -415,13 +409,18 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 						  listeGroupe.setAdapter(adapter);
 					  }
 					  else{
-				        	Toast.makeText(RechercheGroupeActivity.this, resultat, Toast.LENGTH_SHORT).show();
+						  listeNomGroupe.clear();
+						  listeNomGroupe.add(resultat);
+						  adapter = new ArrayAdapter<String>(RechercheGroupeActivity.this,android.R.layout.simple_selectable_list_item,listeNomGroupe);
+						  adapter.setNotifyOnChange(true);
+						  listeGroupe.setAdapter(adapter);
+						  //Toast.makeText(RechercheGroupeActivity.this, resultat, Toast.LENGTH_SHORT).show();
 
 					  }		
 				}
 			}
 	
-	class MyAccessDBParticipationGpe extends AsyncTask<String,Integer,Boolean> {
+	class MyAccessDBEnvoiGpe extends AsyncTask<String,Integer,Boolean> {
 	    private String resultat;
 	    private ProgressDialog pgd=null;
 	    private ArrayList<GroupeDB> listeGroupesDB = new ArrayList<GroupeDB>();
@@ -430,7 +429,7 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 	    private int posChoix = 0;
 	    
 							
-				public MyAccessDBParticipationGpe (RechercheGroupeActivity pActivity) {
+				public MyAccessDBEnvoiGpe (RechercheGroupeActivity pActivity) {
 				
 					link(pActivity);
 					// TODO Auto-generated constructor stub
@@ -489,8 +488,6 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 			        try{
 			        	GroupeDB g = new GroupeDB(gpeChoisi);
 			        	g.read();
-			        	ParticipantDB p = new ParticipantDB(idUs,g.getIdGroupe());
-			        	p.create();
 			        	
 			        	//traduction ici
 			        	resultat = "Vous êtes inscrit dans le groupe "+ gpeChoisi;

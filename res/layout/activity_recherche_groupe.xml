@@ -43,7 +43,8 @@
             android:layout_marginRight="5dp"
             android:layout_toRightOf="@+id/linearLayout1"
             android:clickable="true"
-            android:src="@drawable/abc_ic_search" />
+            android:src="@drawable/abc_ic_search"
+            android:onClick="rechercheGroupe" />
     </LinearLayout>
 
     <LinearLayout
