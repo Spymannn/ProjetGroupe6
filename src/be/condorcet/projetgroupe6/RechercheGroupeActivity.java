@@ -235,14 +235,16 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 				        				flag = false;
 				        			}
 				        		}
-				        		if(flag){
+				        		if(flag && listeGroupesDB2.get(i).getNbrUser() != listeGroupesDB2.get(i).getMaxUser()){
 				        			listeGroupesDB.add(listeGroupesDB2.get(i));
 				        		}
 				        	}
 			        	}
 			        	else{
 			        		for(int i = 0;i<listeGroupesDB2.size();i++){
-			        			listeGroupesDB.add(listeGroupesDB2.get(i));
+			        			if(listeGroupesDB2.get(i).getNbrUser() != listeGroupesDB2.get(i).getMaxUser()){
+			        				listeGroupesDB.add(listeGroupesDB2.get(i));
+			        			}
 			        		}
 			        	}	           
 			        }
