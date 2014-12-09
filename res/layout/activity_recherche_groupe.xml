@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backGroundAct"
+    android:background="@drawable/test_gradient"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -37,14 +37,16 @@
 
         <ImageButton
             android:id="@+id/launchRech"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/linearLayout1"
             android:layout_marginRight="5dp"
             android:layout_toRightOf="@+id/linearLayout1"
+            android:background="@null"
             android:clickable="true"
-            android:src="@drawable/abc_ic_search"
-            android:onClick="rechercheGroupe" />
+            android:onClick="rechercheGroupe"
+            android:src="@drawable/search_icon" />
+
     </LinearLayout>
 
     <LinearLayout
