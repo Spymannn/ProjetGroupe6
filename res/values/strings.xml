@@ -34,5 +34,17 @@
     <string name="title_activity_gpe_inscription">Group registration</string>
     <string name="enterPassword">Please enter the group\'s password :</string>
     <string name="validation">Validation</string>
+    <string name="wrongPass">Wrong password !</string>
+    <string name="charging">Charging</string>
+    <string name="echecCo">Connection failure !</string>
+    <string name="gpesNoFound">Group not found!</string>
+    <string name="inscriValide">Registration complete !</string>
+    <string name="echecParti">Creation participant failure!</string>
+    <string name="sportNoFound">Sports not found !</string>
+    <string name="errorCreation">Error during creation</string>
+    <string name="userNotFound">User not found!</string>
+    <string name="groupsNotFound">Groups not found !</string>
+    <string name="noGroups">No groups found here !</string>
+    <string name="inscriOui">You\'re a participant of the group</string>
 
 </resources>

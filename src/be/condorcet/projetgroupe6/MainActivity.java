@@ -82,14 +82,12 @@ public class MainActivity extends ActionBarActivity {
 		 try {
 	          con.close();
 	          con=null;
-	          //Mettre les trucs à traduire
-	          Log.d("connexion","deconnexion OK ?");
+	          //Log.d("connexion","deconnexion OK ?");
 	          }
 	          catch (Exception e) { 
-	        	  Log.d("connexion","decconnexion bug"+e);
+	        	  //Log.d("connexion","decconnexion bug"+e);
 	          }
-		 //Mettre les trucs à traduire
-		 Log.d("connexion","deconnexion entre dans le destroy OK");
+		 //Log.d("connexion","deconnexion entre dans le destroy OK");
 		
 	}
 	
@@ -118,8 +116,7 @@ public class MainActivity extends ActionBarActivity {
 					 super.onPreExecute();
 					 //Log.d("verifdb", "connection ok0");
 			         pgd=new ProgressDialog(MainActivity.this);
-			         //Faire la traduction ICI !
-					 pgd.setMessage("chargement en cours");
+					 pgd.setMessage(getString(R.string.charging));
 					 pgd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		     		 pgd.show();
 												
@@ -142,23 +139,23 @@ public class MainActivity extends ActionBarActivity {
 				@Override
 				protected Boolean doInBackground(String... arg0) {
 					//String..arg0 c'est un tableau d'argument
-					Log.d("verifdb", "backIn");
+					//Log.d("verifdb", "backIn");
 					boolean flag = true;
 					
 					
 				   if(con==null){//premier invocation
 					  
-					   Log.d("verifdb", "backIn1");
+					   //Log.d("verifdb", "backIn1");
 					   con = new DBConnection().getConnection(); 
 				    	if(con==null) {
-				    		Log.d("verifdb", "backIn2");
+				    		//Log.d("verifdb", "backIn2");
 				    		//à traduire ici
-				    		resultat="echec de la connexion";
+				    		resultat=getString(R.string.echecCo);
 				    		return false;//avec le return on sort, si pas on poursuit
 					    }
 				       //Log.d("verifdb", "connection ok1");
 					   UtilisateurDB.setConnection(con);
-					   Log.d("verifdb", "backIn3");
+					   //Log.d("verifdb", "backIn3");
 				   }
 				   else{
 					   UtilisateurDB.setConnection(con);
@@ -181,19 +178,14 @@ public class MainActivity extends ActionBarActivity {
 			           //Log.d("pass","test 2 : "+password);
 			           		           
 			        }
-			        catch(Exception e){		
-			        	//Traduction ici
-			        	//Log.d("pass","test 3 : "+password+" erreur"+e.getMessage());
-			         //resultat="erreur" +e.getMessage(); 
-			        	//Traduction ICI
-			        	resultat = "User not found!" + ps + pass + e;
+			        catch(Exception e){	
+			        	resultat = getString(R.string.userNotFound);
 			         
 			         return false;
 			         
 			         }
 			        if(!pass.equals(password)){
-			        	//Traduction ICI
-			        	resultat = "Wrong password";
+			        	resultat = getString(R.string.wrongPass);
 			        	   return false;
 			           }
 			        else

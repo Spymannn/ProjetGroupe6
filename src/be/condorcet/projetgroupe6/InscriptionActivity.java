@@ -41,17 +41,12 @@ public class InscriptionActivity extends ActionBarActivity {
 	private Connection con = null;
 	
 	private Button validate = null;
-	//test 
-	private String[] test = new String[]{"test1","test2","test3"};
-	//fin
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_inscription);
-		/**
-		 * Test pour remplir les listes déroulantes
-		 */
+		
 		listeSport1 =(Spinner)findViewById(R.id.spinnerSport1);
 		listeSport2 =(Spinner)findViewById(R.id.spinnerSport2);
 		listeSport3 =(Spinner)findViewById(R.id.spinnerSport3);
@@ -72,12 +67,6 @@ public class InscriptionActivity extends ActionBarActivity {
 		
 		validate = (Button)findViewById(R.id.inscriptionOK);
 		
-		
-	
-		
-		/**
-		 * Fin du test ici
-		 */
 	}
 	
 	public void inscription(View view){
@@ -144,15 +133,15 @@ public class InscriptionActivity extends ActionBarActivity {
 		protected Boolean doInBackground(String... arg0){
 			 try {
 				 if(con == null){
-					 Log.d("connexion","la connexion est null");
+					 //Log.d("connexion","la connexion est null");
 				 }
 		          con.close();
 		          con=null;
 		          //Mettre les trucs à traduire
-		          Log.d("connexion","deconnexion inscri OK");
+		          //Log.d("connexion","deconnexion inscri OK");
 		          }
 		          catch (Exception e) { 
-		        	  Log.d("connexion","deconnexion insci bug"+e);
+		        	  //Log.d("connexion","deconnexion insci bug"+e);
 		          }
 			 //Mettre les trucs à traduire
 			return true;
@@ -188,7 +177,7 @@ public class InscriptionActivity extends ActionBarActivity {
 			         pgd=new ProgressDialog(InscriptionActivity.this);
 			         
 			         //Faire la traduction ICI !
-					 pgd.setMessage("chargement en cours");
+					 pgd.setMessage(getString(R.string.charging));
 					 pgd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		     		 pgd.show();
 												
@@ -205,7 +194,7 @@ public class InscriptionActivity extends ActionBarActivity {
 				    	if(con==null) {
 				    		//Log.d("verifdb", "backIn2");
 				    		//à traduire ici
-				    		resultat="echec de la connexion";
+				    		resultat=getString(R.string.echecCo);
 				    		return false;//avec le return on sort, si pas on poursuit
 					    }
 				       //Log.d("verifdb", "connection ok1");
@@ -232,7 +221,7 @@ public class InscriptionActivity extends ActionBarActivity {
 			        	//Log.d("pass","test 3 : "+password+" erreur"+e.getMessage());
 			         //resultat="erreur" +e.getMessage(); 
 			        	//Traduction ICI
-			        	resultat = "Sports not found!";
+			        	resultat = getString(R.string.sportNoFound);
 			         
 			         return false;
 			         
@@ -260,30 +249,6 @@ public class InscriptionActivity extends ActionBarActivity {
 							listeSport1.setAdapter(adapter);
 							listeSport2.setAdapter(adapter);
 							listeSport3.setAdapter(adapter);
-							/*
-							String[] tabSports2 = new String[tabSports.length - 1];
-							posChoix = listeSport1.getSelectedItemPosition();
-							for(int i = 0;i<tabSports.length - 2;i++){
-								if(i!=posChoix)
-									tabSports2[i] = tabSports[i];
-							}
-							
-							ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(InscriptionActivity.this,android.R.layout.simple_spinner_item,tabSports);
-							adapter2.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-							listeSport2.setAdapter(adapter2);
-							
-							String[] tabSports3 = new String[tabSports2.length - 1];
-							posChoix = listeSport2.getSelectedItemPosition();
-							for(int i = 0;i<tabSports2.length - 2;i++){
-								if(i!=posChoix)
-									tabSports3[i] = tabSports2[i];
-							}
-							
-							ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(InscriptionActivity.this,android.R.layout.simple_spinner_item,tabSports);
-							adapter3.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-							listeSport3.setAdapter(adapter3);
-							*/
-					  
 					  }
 					  else{
 				        	Toast.makeText(InscriptionActivity.this, resultat, Toast.LENGTH_SHORT).show();
@@ -317,7 +282,7 @@ public class InscriptionActivity extends ActionBarActivity {
 			         pgd=new ProgressDialog(InscriptionActivity.this);
 			         
 			         //Faire la traduction ICI !
-					 pgd.setMessage("chargement en cours");
+					 pgd.setMessage(getString(R.string.charging));
 					 pgd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		     		 pgd.show();
 												
@@ -334,7 +299,7 @@ public class InscriptionActivity extends ActionBarActivity {
 				    	if(con==null) {
 				    		//Log.d("verifdb", "backIn2");
 				    		//à traduire ici
-				    		resultat="echec de la connexion";
+				    		resultat=getString(R.string.echecCo);
 				    		return false;//avec le return on sort, si pas on poursuit
 					    }
 				    
@@ -377,7 +342,7 @@ public class InscriptionActivity extends ActionBarActivity {
 			        	//Log.d("pass","test 3 : "+password+" erreur"+e.getMessage());
 			         //resultat="erreur" +e.getMessage(); 
 			        	//Traduction ICI
-			        	resultat = "Error during creation! ";
+			        	resultat = getString(R.string.errorCreation);
 			        	//Toast.makeText(InscriptionActivity.this,listeSport3.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
 			         
 			         return false;

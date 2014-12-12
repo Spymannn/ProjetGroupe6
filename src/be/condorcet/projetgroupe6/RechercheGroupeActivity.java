@@ -129,17 +129,15 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 		protected Boolean doInBackground(String... arg0){
 			 try {
 				 if(con == null){
-					 Log.d("connexion","la connexion est null");
+					 //Log.d("connexion","la connexion est null");
 				 }
 		          con.close();
 		          con=null;
-		          //Mettre les trucs à traduire
-		          Log.d("connexion","deconnexion inscri OK");
+		          //Log.d("connexion","deconnexion inscri OK");
 		          }
 		          catch (Exception e) { 
-		        	  Log.d("connexion","deconnexion insci bug"+e);
+		        	  //Log.d("connexion","deconnexion insci bug"+e);
 		          }
-			 //Mettre les trucs à traduire
 			return true;
 		}
 		protected void onPostExecute(Boolean result){
@@ -175,7 +173,7 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 			         pgd=new ProgressDialog(RechercheGroupeActivity.this);
 			         
 			         //Faire la traduction ICI !
-					 pgd.setMessage("chargement en cours");
+					 pgd.setMessage(getString(R.string.charging));
 					 pgd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		     		 pgd.show();
 												
@@ -184,15 +182,13 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 				@Override
 				protected Boolean doInBackground(String... arg0) {
 					//String..arg0 c'est un tableau d'argument
-					//Log.d("verifdb", "backIn");
 										
 				   if(con==null){//premier invocation
-					   //Log.d("verifdb", "backIn1");
 					   con = new DBConnection().getConnection(); 
 				    	if(con==null) {
 				    		//Log.d("verifdb", "backIn2");
 				    		//à traduire ici
-				    		resultat="echec de la connexion";
+				    		resultat=getString(R.string.echecCo);
 				    		return false;//avec le return on sort, si pas on poursuit
 					    }
 				       //Log.d("verifdb", "connection ok1");
@@ -213,7 +209,6 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 				     * Cette connexion devra être lancée ici
 				     * dans toutes les classesDB, on mets tout ici
 				     */
-				   //Log.d("pass","test 1 : "+password+ "pseudo : "+ps);
 			        try{
 			        	tabPart = null;
 			        	listeGroupesDB2 = GroupeDB.afficheTousGroupe();
@@ -253,7 +248,7 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 			        	//Log.d("pass","test 3 : "+password+" erreur"+e.getMessage());
 			         //resultat="erreur" +e.getMessage(); 
 			        	//Traduction ICI
-			        	resultat = "Groups not found!"+e;
+			        	resultat = getString(R.string.groupsNotFound);
 			         
 			         return false;
 			         
@@ -310,7 +305,7 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 			         pgd=new ProgressDialog(RechercheGroupeActivity.this);
 			         
 			         //Faire la traduction ICI !
-					 pgd.setMessage("chargement en cours");
+					 pgd.setMessage(getString(R.string.charging));
 					 pgd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		     		 pgd.show();
 												
@@ -327,7 +322,7 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 				    	if(con==null) {
 				    		//Log.d("verifdb", "backIn2");
 				    		//à traduire ici
-				    		resultat="echec de la connexion";
+				    		resultat=getString(R.string.echecCo);
 				    		return false;//avec le return on sort, si pas on poursuit
 					    }
 				       //Log.d("verifdb", "connection ok1");
@@ -348,7 +343,6 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 				     * Cette connexion devra être lancée ici
 				     * dans toutes les classesDB, on mets tout ici
 				     */
-				   //Log.d("pass","test 1 : "+password+ "pseudo : "+ps);
 			        try{
 			        	tabPart = null;
 			        	listeGroupesDB2 = GroupeDB.afficheTousGroupeRech(texteRech.getText().toString().trim());
@@ -384,11 +378,7 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 			        	}	           
 			        }
 			        catch(Exception e){		
-			        	//Traduction ici
-			        	//Log.d("pass","test 3 : "+password+" erreur"+e.getMessage());
-			         //resultat="erreur" +e.getMessage(); 
-			        	//Traduction ICI
-			        	resultat = "No groups found!";
+			        	resultat = getString(R.string.noGroups);
 			         
 			         return false;
 			         
@@ -450,7 +440,7 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 			         pgd=new ProgressDialog(RechercheGroupeActivity.this);
 			         
 			         //Faire la traduction ICI !
-					 pgd.setMessage("chargement en cours");
+					 pgd.setMessage(getString(R.string.charging));
 					 pgd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		     		 pgd.show();
 												
@@ -467,7 +457,7 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 				    	if(con==null) {
 				    		//Log.d("verifdb", "backIn2");
 				    		//à traduire ici
-				    		resultat="echec de la connexion";
+				    		resultat=getString(R.string.echecCo);
 				    		return false;//avec le return on sort, si pas on poursuit
 					    }
 				       //Log.d("verifdb", "connection ok1");
@@ -494,14 +484,14 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 			        	g.read();
 			        	
 			        	//traduction ici
-			        	resultat = "Vous êtes inscrit dans le groupe "+ gpeChoisi;
+			        	resultat = getString(R.string.inscriOui)+ gpeChoisi;
 			        }
 			        catch(Exception e){		
 			        	//Traduction ici
 			        	//Log.d("pass","test 3 : "+password+" erreur"+e.getMessage());
 			         //resultat="erreur" +e.getMessage(); 
 			        	//Traduction ICI
-			        	resultat = "erreur création participant!"+e;
+			        	resultat = getString(R.string.errorCreation);
 			         
 			         return false;
 			         

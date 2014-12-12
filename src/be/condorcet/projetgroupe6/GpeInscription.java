@@ -81,7 +81,7 @@ public class GpeInscription extends ActionBarActivity {
 				adb.execute();
 			}
 			else{
-				Toast.makeText(GpeInscription.this,"Wrong password", Toast.LENGTH_LONG).show();
+				Toast.makeText(GpeInscription.this,R.string.wrongPass, Toast.LENGTH_LONG).show();
 			}
 		}	
 	}
@@ -112,13 +112,12 @@ public class GpeInscription extends ActionBarActivity {
 	          con.close();
 	          con=null;
 	          //Mettre les trucs à traduire
-	          Log.d("connexion","deconnexion OK ?");
+	          //Log.d("connexion","deconnexion OK ?");
 	          }
 	          catch (Exception e) { 
-	        	  Log.d("connexion","decconnexion bug"+e);
+	        	  //Log.d("connexion","decconnexion bug"+e);
 	          }
 		 //Mettre les trucs à traduire
-		 Log.d("connexion","deconnexion entre dans le destroy OK");
 		
 	}
 	
@@ -143,7 +142,7 @@ public class GpeInscription extends ActionBarActivity {
 			         pgd=new ProgressDialog(GpeInscription.this);
 			         
 			         //Faire la traduction ICI !
-					 pgd.setMessage("chargement en cours");
+					 pgd.setMessage(getString(R.string.charging));
 					 pgd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		     		 pgd.show();
 												
@@ -160,7 +159,7 @@ public class GpeInscription extends ActionBarActivity {
 				    	if(con==null) {
 				    		//Log.d("verifdb", "backIn2");
 				    		//à traduire ici
-				    		resultat="echec de la connexion";
+				    		resultat=getString(R.string.echecCo);
 				    		return false;//avec le return on sort, si pas on poursuit
 					    }
 				       //Log.d("verifdb", "connection ok1");
@@ -195,11 +194,7 @@ public class GpeInscription extends ActionBarActivity {
 			        	           
 			        }
 			        catch(Exception e){		
-			        	//Traduction ici
-			        	//Log.d("pass","test 3 : "+password+" erreur"+e.getMessage());
-			         //resultat="erreur" +e.getMessage(); 
-			        	//Traduction ICI
-			        	resultat = "Group not found!";
+			        	resultat = getString(R.string.gpesNoFound);
 			         
 			         return false;
 			         
@@ -251,7 +246,7 @@ public class GpeInscription extends ActionBarActivity {
 			         pgd=new ProgressDialog(GpeInscription.this);
 			         
 			         //Faire la traduction ICI !
-					 pgd.setMessage("chargement en cours");
+					 pgd.setMessage(getString(R.string.charging));
 					 pgd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		     		 pgd.show();
 												
@@ -268,7 +263,7 @@ public class GpeInscription extends ActionBarActivity {
 				    	if(con==null) {
 				    		//Log.d("verifdb", "backIn2");
 				    		//à traduire ici
-				    		resultat="echec de la connexion";
+				    		resultat=getString(R.string.echecCo);
 				    		return false;//avec le return on sort, si pas on poursuit
 					    }
 				       //Log.d("verifdb", "connection ok1");
@@ -296,14 +291,10 @@ public class GpeInscription extends ActionBarActivity {
 			        	p.create();
 			        	
 			        	//traduction ici
-			        	resultat = "Vous êtes inscrit dans le groupe ";
+			        	resultat = getString(R.string.inscriValide);
 			        }
 			        catch(Exception e){		
-			        	//Traduction ici
-			        	//Log.d("pass","test 3 : "+password+" erreur"+e.getMessage());
-			         //resultat="erreur" +e.getMessage(); 
-			        	//Traduction ICI
-			        	resultat = "erreur création participant!"+e;
+			        	resultat = getString(R.string.echecParti);
 			         
 			         return false;
 			         
