@@ -14,8 +14,8 @@
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" 
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/nomGpe"
@@ -35,25 +35,26 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/enterPassword" />
-        <EditText 
+
+        <EditText
             android:id="@+id/passEnter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:hint="@string/password"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword" />
     </LinearLayout>
 
     <Button
         android:id="@+id/validationGpe"
         style="@style/connectB"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout1"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="39dp"
         android:gravity="center"
-        android:text="@string/validation"
-        android:onClick="validInscription" />
+        android:onClick="validInscription"
+        android:text="@string/validation" />
 
 </RelativeLayout>

@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.testunprojet.MainActivity" >
-    
+
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
@@ -65,38 +65,36 @@
             style="@style/connectB"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
+            android:onClick="log"
             android:text="@string/login"
             android:textColorHint="@color/BackgroundCB"
-            android:textColorLink="@color/textColorCB"
-            android:onClick="log" />
-
+            android:textColorLink="@color/textColorCB" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal" >
 
-	        <TextView
-	        android:id="@+id/signup"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/signup"
-	        android:onClick="sign"
-	        android:clickable="true" />
-	        
-	         <TextView
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text=" | " />
-	         
-	        <TextView
-	            android:id="@+id/lostPassword"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="@string/lostPassword" />
+        <TextView
+            android:id="@+id/signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:onClick="sign"
+            android:text="@string/signup" />
 
-   	 	</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" | " />
+
+        <TextView
+            android:id="@+id/lostPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lostPassword" />
+    </LinearLayout>
 
 </RelativeLayout>
