@@ -182,7 +182,6 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 				@Override
 				protected Boolean doInBackground(String... arg0) {
 					//String..arg0 c'est un tableau d'argument
-										
 				   if(con==null){//premier invocation
 					   con = new DBConnection().getConnection(); 
 				    	if(con==null) {

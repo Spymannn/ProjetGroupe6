@@ -44,6 +44,7 @@ public class MainActivity extends ActionBarActivity {
 	public void sign(View view){
 		Intent i2 = new Intent(MainActivity.this,InscriptionActivity.class);
 		startActivity(i2);
+		finish();
 	}
 
 	public void log(View view){
@@ -145,7 +146,7 @@ public class MainActivity extends ActionBarActivity {
 					
 				   if(con==null){//premier invocation
 					  
-					   //Log.d("verifdb", "backIn1");
+					   Log.d("verifdb", "backIn1");
 					   con = new DBConnection().getConnection(); 
 				    	if(con==null) {
 				    		//Log.d("verifdb", "backIn2");
@@ -153,9 +154,9 @@ public class MainActivity extends ActionBarActivity {
 				    		resultat=getString(R.string.echecCo);
 				    		return false;//avec le return on sort, si pas on poursuit
 					    }
-				       //Log.d("verifdb", "connection ok1");
+				       Log.d("verifdb", "connection ok1");
 					   UtilisateurDB.setConnection(con);
-					   //Log.d("verifdb", "backIn3");
+					   Log.d("verifdb", "backIn3");
 				   }
 				   else{
 					   UtilisateurDB.setConnection(con);
@@ -167,7 +168,7 @@ public class MainActivity extends ActionBarActivity {
 				     * Cette connexion devra être lancée ici
 				     * dans toutes les classesDB, on mets tout ici
 				     */
-				   //Log.d("pass","test 1 : "+password+ "pseudo : "+ps);
+				   Log.d("pass","test 1 : "+password+ "pseudo : "+ps);
 			        try{
 			        	
 			           UtilisateurDB user=new UtilisateurDB(ps);
@@ -203,6 +204,7 @@ public class MainActivity extends ActionBarActivity {
 						  Intent i2 = new Intent(MainActivity.this,RechercheGroupeActivity.class);
 						  i2.putExtra("IDUSER",idUser);
 						  startActivity(i2);
+						  finish();
 					  }
 					  else{
 				        	Toast.makeText(MainActivity.this, resultat, Toast.LENGTH_SHORT).show();
