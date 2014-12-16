@@ -6,12 +6,12 @@
     <string name="title_activity_recherche">Rechercher un groupe</string>
     <string name="hello_world">Bonjour tout le monde!</string>
     <string name="action_settings">Paramètres</string>
-    <string name="login">Identifiant</string>
+    <string name="login">Login</string>
     <string name="password">Mot de passe</string>
     <string name="signup"><u>Inscrivez vous dès maintenant !</u></string>
     <string name="lostPassword"><u>Mot de passe oublié ?</u></string>
     <string name="title_activity_inscription">Inscription</string>
-    <string name="inscr">Enregistrement</string>
+    <string name="inscr">Donnée personnelle</string>
     <string name="name">Nom</string>
     <string name="firstname">Prénom</string>
     <string name="pseudo">Pseudo</string>
@@ -24,7 +24,7 @@
     <string name="radioM">Homme</string>
     <string name="radioF">Femme</string>
     <string name="choosesport">Choisir 3 sports favoris</string>
-    <string name="inscriOK">Enregistrement validé</string>
+    <string name="inscriOK">Valider</string>
     <string name="passNotEqual">Le mot de passe et la confirmation ne sont pas les même</string>
     <string name="chooseDifferent">S\'il vous plait, veuillez choisir des sports différents</string>
     <string name="userCreate">Félicitation, compte créé!</string>
