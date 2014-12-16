@@ -33,6 +33,7 @@ public class InscriptionActivity extends ActionBarActivity {
 	private Spinner listeSport1;
 	private Spinner listeSport2;
 	private Spinner listeSport3;
+	private ArrayList<SportDB> liste1 = new ArrayList<SportDB>();
 	
 	private EditText name,fname,pseudo,passe,confpass,mail,dd,mm,yyyy;
 	private RadioGroup gender;
@@ -47,13 +48,6 @@ public class InscriptionActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_inscription);
 		
-		listeSport1 =(Spinner)findViewById(R.id.spinnerSport1);
-		listeSport2 =(Spinner)findViewById(R.id.spinnerSport2);
-		listeSport3 =(Spinner)findViewById(R.id.spinnerSport3);
-		
-		MyAccessDBAfficheListe adb = new MyAccessDBAfficheListe(InscriptionActivity.this);
-		adb.execute();
-		
 		name = (EditText)findViewById(R.id.nameE);
 		fname = (EditText)findViewById(R.id.firstnameE);
 		pseudo = (EditText)findViewById(R.id.pseudoE);
@@ -67,6 +61,47 @@ public class InscriptionActivity extends ActionBarActivity {
 		
 		validate = (Button)findViewById(R.id.inscriptionOK);
 		
+		listeSport1 =(Spinner)findViewById(R.id.spinnerSport1);
+		listeSport2 =(Spinner)findViewById(R.id.spinnerSport2);
+		listeSport3 =(Spinner)findViewById(R.id.spinnerSport3);
+		
+		if(savedInstanceState != null){
+			liste1 = savedInstanceState.getParcelableArrayList("megaListe1");
+			if(liste1 != null){
+				ArrayList<String> tableauSport = new ArrayList<String>();
+
+				for(int i = 0;i<liste1.size();i++){
+					tableauSport.add(liste1.get(i).getNomSport());
+				}
+				ArrayAdapter<String> adapter = new ArrayAdapter<String>(InscriptionActivity.this,android.R.layout.simple_spinner_item,tableauSport);
+				adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+				
+				listeSport1.setAdapter(adapter);
+				listeSport2.setAdapter(adapter);
+				listeSport3.setAdapter(adapter);
+			}
+			
+		}
+		else{
+			MyAccessDBAfficheListe adb = new MyAccessDBAfficheListe(InscriptionActivity.this);
+			adb.execute();
+		}
+		
+		
+		
+		
+	}
+	
+	public void onSaveInstanceState(Bundle savedState){
+		super.onSaveInstanceState(savedState);
+		ArrayList<SportDB> listeee1 = new ArrayList<SportDB>();
+		
+		
+		listeee1 = liste1;
+		
+		savedState.putParcelableArrayList("megaListe1", listeee1);
+		
+	
 	}
 	
 	public void inscription(View view){
@@ -246,6 +281,7 @@ public class InscriptionActivity extends ActionBarActivity {
 							ArrayAdapter<String> adapter = new ArrayAdapter<String>(InscriptionActivity.this,android.R.layout.simple_spinner_item,tabSports);
 							adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 							
+							liste1 = listeSports;
 							listeSport1.setAdapter(adapter);
 							listeSport2.setAdapter(adapter);
 							listeSport3.setAdapter(adapter);
@@ -263,6 +299,7 @@ public class InscriptionActivity extends ActionBarActivity {
 	    private ProgressDialog pgd=null;
 	    private ArrayList<SportDB> listeSports = new ArrayList<SportDB>();
 	    private int posChoix = 0;
+	    private boolean flag = true;
 	    
 							
 				public MyAccessDBInscription(InscriptionActivity pActivity) {
@@ -328,13 +365,28 @@ public class InscriptionActivity extends ActionBarActivity {
 	        			gend = getString(R.string.radioF);
 	        		}
 			        try{
-			        	UtilisateurDB user = new UtilisateurDB(name.getText().toString().trim(),
-			        				fname.getText().toString().trim(),passe.getText().toString().trim(),
-			        				pseudo.getText().toString().trim(),mail.getText().toString().trim(),
-			        				dd.getText().toString()+"/"+mm.getText().toString()+"/"+yyyy.getText().toString(),
-			        				gend,listeSport1.getSelectedItem().toString(),listeSport2.getSelectedItem().toString(),
-			        				listeSport3.getSelectedItem().toString());
-		        		user.create();
+			        	ArrayList<UtilisateurDB> listeUser = UtilisateurDB.afficheTousUtilisateurs();
+			        	
+			        	for(int i = 0;i<listeUser.size();i++){
+			        		if(mail.getText().toString().trim().equals(listeUser.get(i).getEmail())){
+			        			flag = false;
+				        		resultat = getString(R.string.emailUtilise);
+			        		}
+			        		if(pseudo.getText().toString().trim().equals(listeUser.get(i).getPseudoUser())){
+			        			flag = false;
+			        			resultat = getString(R.string.pseudoUtilise);
+			        		}
+			        	}
+			        	if(flag){
+				        	UtilisateurDB user = new UtilisateurDB(name.getText().toString().trim(),
+				        				fname.getText().toString().trim(),passe.getText().toString().trim(),
+				        				pseudo.getText().toString().trim(),mail.getText().toString().trim(),
+				        				dd.getText().toString()+"/"+mm.getText().toString()+"/"+yyyy.getText().toString(),
+				        				gend,listeSport1.getSelectedItem().toString(),listeSport2.getSelectedItem().toString(),
+				        				listeSport3.getSelectedItem().toString());
+			        		user.create();
+			        	}
+			        	
 			           		           
 			        }
 			        catch(Exception e){		
@@ -359,9 +411,13 @@ public class InscriptionActivity extends ActionBarActivity {
 					 super.onPostExecute(result);
 					  pgd.dismiss();
 					  if(result){
-						  Toast.makeText(InscriptionActivity.this,R.string.userCreate,Toast.LENGTH_SHORT).show();
-						  Intent i2 = new Intent(InscriptionActivity.this,MainActivity.class);
-						  startActivity(i2);
+						  if(flag){
+							  Toast.makeText(InscriptionActivity.this,R.string.userCreate,Toast.LENGTH_SHORT).show();
+							  Intent i2 = new Intent(InscriptionActivity.this,MainActivity.class);
+							  startActivity(i2);
+						  }
+						  else
+							  Toast.makeText(InscriptionActivity.this, resultat, Toast.LENGTH_SHORT).show();
 					  
 					  }
 					  else{

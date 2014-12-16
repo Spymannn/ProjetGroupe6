@@ -32,6 +32,7 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 	private ImageButton rech = null;
 	private ListView listeGroupe = null;
 	private ArrayList<String> listeNomGroupe = null;
+	private ArrayList<GroupeDB> listeGpeSave = new ArrayList<GroupeDB>();
 	private int idUs = 0;
 	private String gpeChoisi = null;
 	private  ArrayAdapter<String> adapter= null;
@@ -52,23 +53,37 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 		
 		listeNomGroupe = new ArrayList<String>();
 		
-		MyAccessDBAfficheGroupe aff = new MyAccessDBAfficheGroupe(RechercheGroupeActivity.this);
-		aff.execute();
+		if(savedInstanceState != null){
+			listeGpeSave = savedInstanceState.getParcelableArrayList("gpeSave1");
+			if(listeGpeSave != null){
+				ArrayList<String> tableauGpe = new ArrayList<String>();
+
+				for(int j = 0;j<listeGpeSave.size();j++){
+					tableauGpe.add(listeGpeSave.get(j).getNomGroupe()+ "        "+ listeGpeSave.get(j).getNbrUser()+ "/"+listeGpeSave.get(j).getMaxUser());
+				}
+				ArrayAdapter<String> adapter = new ArrayAdapter<String>(RechercheGroupeActivity.this,android.R.layout.simple_spinner_item,tableauGpe);
+				adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+				
+				adapter.setNotifyOnChange(true);
+				listeGroupe.setAdapter(adapter);
+			}
+		}
+		else{
+			MyAccessDBAfficheGroupe aff = new MyAccessDBAfficheGroupe(RechercheGroupeActivity.this);
+			aff.execute();
+		}
+		
 		
 		listeGroupe.setOnItemClickListener(
 				new ListView.OnItemClickListener() {
 				@Override
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
-				         //Toast.makeText(RechercheGroupeActivity.this,""+ listeGroupe.getItemAtPosition(position),Toast.LENGTH_SHORT).show();
 						gpeChoisi = listeGroupe.getItemAtPosition(position).toString().trim().substring(0,listeGroupe.getItemAtPosition(position).toString().trim().length()-6).trim();
 						Intent i = new Intent(RechercheGroupeActivity.this,GpeInscription.class);
 						i.putExtra("NOMGPE",gpeChoisi);
 						i.putExtra("IDUSER",idUs);
 						startActivity(i);
-						//Toast.makeText(RechercheGroupeActivity.this,gpeChoisi,Toast.LENGTH_SHORT).show();
-						//MyAccessDBParticipationGpe part = new MyAccessDBParticipationGpe(RechercheGroupeActivity.this);
-						//part.execute();
 						
 					}
 				}
@@ -76,6 +91,17 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 		);
 		
 		
+	}
+	public void onSaveInstanceState(Bundle savedState){
+		super.onSaveInstanceState(savedState);
+		ArrayList<GroupeDB> listGpe1 = new ArrayList<GroupeDB>();
+		
+		
+		listGpe1 = listeGpeSave;
+		
+		savedState.putParcelableArrayList("gpeSave1", listGpe1);
+		
+	
 	}
 	
 	public void rechercheGroupe(View view){
@@ -266,6 +292,7 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 						  for(int i = 0;i<listeGroupesDB.size();i++){
 							  listeNomGroupe.add(listeGroupesDB.get(i).getNomGroupe()+ "        "+ listeGroupesDB.get(i).getNbrUser()+ "/"+listeGroupesDB.get(i).getMaxUser());
 						  }
+						  listeGpeSave = listeGroupesDB;
 						  adapter = new ArrayAdapter<String>(RechercheGroupeActivity.this,android.R.layout.simple_selectable_list_item,listeNomGroupe);
 						  adapter.setNotifyOnChange(true);
 						  listeGroupe.setAdapter(adapter);
@@ -397,6 +424,7 @@ public class RechercheGroupeActivity extends ActionBarActivity {
 						  for(int i = 0;i<listeGroupesDB.size();i++){
 							  listeNomGroupe.add(listeGroupesDB.get(i).getNomGroupe()+ "        "+ listeGroupesDB.get(i).getNbrUser()+ "/"+listeGroupesDB.get(i).getMaxUser());
 						  }
+						  listeGpeSave = listeGroupesDB;
 						  adapter = new ArrayAdapter<String>(RechercheGroupeActivity.this,android.R.layout.simple_selectable_list_item,listeNomGroupe);
 						  adapter.setNotifyOnChange(true);
 						  listeGroupe.setAdapter(adapter);

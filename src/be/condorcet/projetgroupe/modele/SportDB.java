@@ -3,9 +3,11 @@ package be.condorcet.projetgroupe.modele;
 import java.sql.*;
 import java.util.*;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
-public class SportDB extends Sport implements CRUD{
+public class SportDB extends Sport implements CRUD,Parcelable{
 	/**
 	  * connexion à la base de données partagée entre toutes les instances(statique)
 	  */
@@ -194,6 +196,18 @@ public class SportDB extends Sport implements CRUD{
 	            }
 	            catch (Exception e){}
 	          }
+		
+	}
+
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		// TODO Auto-generated method stub
 		
 	}
 

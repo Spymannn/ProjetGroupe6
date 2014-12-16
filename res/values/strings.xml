@@ -46,5 +46,7 @@
     <string name="groupsNotFound">Groups not found !</string>
     <string name="noGroups">No groups found here !</string>
     <string name="inscriOui">You\'re a participant of the group</string>
+    <string name="emailUtilise">Email already used !</string>
+    <string name="pseudoUtilise">Pseudo already used !</string>
 
 </resources>

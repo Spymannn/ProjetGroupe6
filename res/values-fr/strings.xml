@@ -6,7 +6,7 @@
     <string name="title_activity_recherche">Rechercher un groupe</string>
     <string name="hello_world">Bonjour tout le monde!</string>
     <string name="action_settings">Paramètres</string>
-    <string name="login">Login</string>
+    <string name="login">Connexion</string>
     <string name="password">Mot de passe</string>
     <string name="signup"><u>Inscrivez vous dès maintenant !</u></string>
     <string name="lostPassword"><u>Mot de passe oublié ?</u></string>
