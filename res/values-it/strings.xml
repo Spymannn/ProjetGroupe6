@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Progetto</string>
+    <string name="app_name">Progetto Sport</string>
     <string name="title_activity_activity_inscription">Registrazione</string>
     <string name="title_activity_recherche">Ricerca di un gruppo</string>
     <string name="hello_world">Ciao a tutti!</string>

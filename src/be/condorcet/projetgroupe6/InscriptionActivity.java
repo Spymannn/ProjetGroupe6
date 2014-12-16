@@ -86,10 +86,6 @@ public class InscriptionActivity extends ActionBarActivity {
 			MyAccessDBAfficheListe adb = new MyAccessDBAfficheListe(InscriptionActivity.this);
 			adb.execute();
 		}
-		
-		
-		
-		
 	}
 	
 	public void onSaveInstanceState(Bundle savedState){

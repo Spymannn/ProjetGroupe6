@@ -10,7 +10,7 @@
     <string name="password">Password</string>
     <string name="signup"><u>Sign up now!</u></string>
     <string name="lostPassword"><u>Forgot password ?</u></string>
-    <string name="title_activity_inscription">Inscription</string>
+    <string name="title_activity_inscription">Registration</string>
     <string name="inscr">Registration</string>
     <string name="name">Name</string>
     <string name="firstname">Firstname</string>
