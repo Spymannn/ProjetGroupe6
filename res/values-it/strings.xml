@@ -41,5 +41,8 @@
     <string name="groupsNotFound">Gruppo non trovato !</string>
     <string name="noGroups">Nessun gruppo trovato qui !</string>
     <string name="inscriOui">Sei un partecipante del gruppo</string>
+    
+    <string name="emailUtilise">Email già usato!</string>
+    <string name="pseudoUtilise">Pseudo già usato!</string>
 
 </resources>
