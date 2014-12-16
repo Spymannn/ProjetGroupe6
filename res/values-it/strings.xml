@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Progetto</string>
+    <string name="title_activity_activity_inscription">Registrazione</string>
+    <string name="title_activity_recherche">Ricerca di un gruppo</string>
+    <string name="hello_world">Ciao a tutti!</string>
+    <string name="action_settings">Parametro</string>
+    <string name="login">login</string>
+    <string name="password">Password</string>
+    <string name="signup"><u>Iscriviti ora !</u></string>
+    <string name="lostPassword"><u>Password dimenticato ?</u></string>
+    <string name="title_activity_inscription">Registrazione</string>
+    <string name="inscr">Registrazione</string>
+    <string name="name">Nome</string>
+    <string name="firstname">Cognome</string>
+    <string name="pseudo">soprannome</string>
+    <string name="confPass">Conferma password</string>
+    <string name="naiss">Data di nascita</string>
+    <string name="gender">Tipo</string>
+    <string name="radioM">Uomo</string>
+    <string name="radioF">Donna</string>
+    <string name="choosesport">Scegli 3 sport preferiti</string>
+    <string name="inscriOK">Registrazione validata</string>
+    <string name="passNotEqual">Lo password e la conferma non sono uguali</string>
+    <string name="chooseDifferent">Per favore, dovete scegliere diversi sport</string>
+    <string name="userCreate">Congratulazioni , conto creato!</string>
+    <string name="searchGroup">Cerca il tuo gruppo qui!</string>
+    <string name="title_activity_gpe_inscription">Registramento di gruppo</string>
+    <string name="enterPassword">Per favore, incerisce lo password del gruppo :</string>
+    <string name="validation">validare</string>
+    <string name="wrongPass">Password falso!</string>
+    <string name="charging">Caricamento</string>
+    <string name="echecCo">Errore di connessione !</string>
+    <string name="gpesNoFound">Nessun gruppo trovato!</string>
+    <string name="inscriValide">Registrazione completata !</string>
+    <string name="echecParti">Errore di creazione di un partecipante!</string>
+    <string name="sportNoFound">Sport non trovato !</string>
+    <string name="errorCreation">Errore di creazione</string>
+    <string name="userNotFound">Utente non trovato!</string>
+    <string name="groupsNotFound">Gruppo non trovato !</string>
+    <string name="noGroups">Nessun gruppo trovato qui !</string>
+    <string name="inscriOui">Sei un partecipante del gruppo</string>
+
+</resources>
