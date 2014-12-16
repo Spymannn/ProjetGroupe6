@@ -44,7 +44,6 @@ public class MainActivity extends ActionBarActivity {
 	public void sign(View view){
 		Intent i2 = new Intent(MainActivity.this,InscriptionActivity.class);
 		startActivity(i2);
-		finish();
 	}
 
 	public void log(View view){
@@ -204,7 +203,6 @@ public class MainActivity extends ActionBarActivity {
 						  Intent i2 = new Intent(MainActivity.this,RechercheGroupeActivity.class);
 						  i2.putExtra("IDUSER",idUser);
 						  startActivity(i2);
-						  finish();
 					  }
 					  else{
 				        	Toast.makeText(MainActivity.this, resultat, Toast.LENGTH_SHORT).show();
